@@ -20,7 +20,7 @@ def__init__(self, tipo_org):
 
 # --- CENTRO DE SALUD --- #
 
-#hola 
+
 
 
 
