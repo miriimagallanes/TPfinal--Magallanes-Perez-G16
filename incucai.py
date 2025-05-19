@@ -1,5 +1,5 @@
-from donantes import Donante
-from receptor import Receptor
+from pacientes.donantes import Donante
+from pacientes.receptor import Receptor
 from datetime import datetime, timedelta
 
 class INCUCAI:
