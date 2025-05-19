@@ -18,7 +18,7 @@ def__init__(self, tipo_org):
 
 """
 
-# --- CENTRO DE SALUD --- #
+# ---- CENTRO DE SALUD ---- #
 
 
 
