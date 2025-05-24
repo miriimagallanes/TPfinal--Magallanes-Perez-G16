@@ -1,13 +1,16 @@
+
+from pacientes.pacientes import Pacientes
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
 from organos import Organo
 from vehiculos.vehiculo_terrestre import Vehiculo_terrestre
-from vehiculos.helicoptero import Helicoptero
 from vehiculos.avion import Avion
+from vehiculos.helicoptero import Helicoptero
 from cirujanos import Cirujano
 from centro_salud import Centro_Salud
 from incucai import INCUCAI
-from datetime import datetime
+from excepciones import RecursoNoDisponibleError, RecursosInsuficientesError, CentroSaludNoEncontradoError, PacienteNoEncontradoError
+from datetime import datetime, timedelta
 
 def main():
     # 1. Crear centros de salud con coordenadas

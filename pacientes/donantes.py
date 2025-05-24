@@ -6,7 +6,7 @@ from organos import Organo
 class Donante(Pacientes):
     def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
                  fecha_fallecimiento, hora_fallecimiento, fecha_inicio_ablacion, hora_inicio_ablacion,
-                 organos_a_donar_str=None): # Ahora esperamos una lista de strings
+                 organos_a_donar_str=None): 
         super().__init__(nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado)
         self.fecha_fallecimiento = fecha_fallecimiento
         self.hora_fallecimiento = hora_fallecimiento
