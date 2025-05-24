@@ -127,7 +127,7 @@ class Centro_Salud:
     def _obtener_especialidad_para_organo(self, organo):
         especialidades_por_organo = {
             "corazón": "cardiovascular",
-            "pulmones": "pulmonar",
+            "pulmon": "pulmonar",
             "piel": "plástico",
             "córneas": "plástico",
             "huesos": "traumatólogo",
