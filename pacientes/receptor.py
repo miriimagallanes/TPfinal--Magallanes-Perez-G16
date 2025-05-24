@@ -36,6 +36,7 @@ class Receptor(Pacientes):
         self.patologia = patologia
 
 
-
+    def get_partido(self):
+        return self.centro_salud_asociado.partido if self.centro_salud_asociado else None
 
 
