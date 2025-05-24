@@ -5,7 +5,8 @@ from vehiculos.vehiculo_terrestre import Vehiculo_terrestre
 from vehiculos.avion import Avion
 from vehiculos.helicoptero import Helicoptero
 from math import radians, cos, sin, atan2, sqrt
-
+from excepciones import RecursoNoDisponibleError
+from cirujanos import Cirujano 
  
 class Centro_Salud:
     def __init__(self, nombre, direccion, partido, provincia, telefono, latitud=None, longitud=None):
@@ -39,20 +40,7 @@ class Centro_Salud:
         distancia = self.obtener_distancia(centro_receptor)
 
         if distancia is None:
-            print(f"Centro {self.nombre}: No se pueden calcular distancias para la selección de vehículo.")
-            # Podríamos usar la lógica anterior basada en ubicación como respaldo
-            if self.provincia == centro_receptor.provincia and self.partido == centro_receptor.partido:
-                vehiculos_terrestres_disponibles = [v for v in self.vehiculos if isinstance(v, Vehiculo_terrestre) and v.disponible]
-                if vehiculos_terrestres_disponibles:
-                    vehiculo_seleccionado = max(vehiculos_terrestres_disponibles, key=lambda v: v.velocidad)
-            elif self.provincia == centro_receptor.provincia:
-                helicopteros_disponibles = [v for v in self.vehiculos if isinstance(v, Helicoptero) and v.disponible]
-                if helicopteros_disponibles:
-                    vehiculo_seleccionado = helicopteros_disponibles[0]
-            else:
-                aviones_disponibles = [v for v in self.vehiculos if isinstance(v, Avion) and v.disponible]
-                if aviones_disponibles:
-                    vehiculo_seleccionado = aviones_disponibles[0]
+           raise RecursoNoDisponibleError(f"No se pueden calcular distancias entre el centro {self.nombre} y el centro {centro_receptor.nombre} para seleccionar un vehículo. Faltan coordenadas.")
         else:
             # Lógica de selección basada en la distancia
             if distancia <= 100: # Distancias cortas, usar terrestre
@@ -72,7 +60,7 @@ class Centro_Salud:
             vehiculo_seleccionado.marcar_no_disponible()
             print(f"Centro {self.nombre}: Se ha seleccionado un vehículo ({type(vehiculo_seleccionado).__name__}) para el traslado (distancia: {distancia:.2f} km).")
         else:
-            print(f"Centro {self.nombre}: No hay vehículo disponible para el traslado (distancia: {distancia:.2f} km si se pudo calcular).")
+            raise RecursoNoDisponibleError(f"No hay vehiculos disponibles en el centro {self.nombre} para el traslado (distancia: {distancia: .2f}km).)")
 
         return vehiculo_seleccionado
 
@@ -88,6 +76,7 @@ class Centro_Salud:
                     break
 
         if not cirujano_seleccionado:
+            #Si no se encontro un cirujano especialista, buscamos uno general
             for cirujano in self.cirujanos:
                 if not cirujano.especialidades and cirujano.esta_disponible():
                     cirujano_seleccionado = cirujano
@@ -97,8 +86,7 @@ class Centro_Salud:
         if cirujano_seleccionado:
             print(f"Centro {self.nombre}: Se ha seleccionado al cirujano {cirujano_seleccionado.nombre} para la operación de {organo}.")
         else:
-            print(f"Centro {self.nombre}: No hay cirujano disponible para la operación de {organo}.")
-
+           raise RecursoNoDisponibleError(f"No hay cirujano disponible en el centro {self.nombre} para la operación de {organo}.")
         return cirujano_seleccionado
     
     def realizar_ablacion(self, donante, organo_a_ablacion):

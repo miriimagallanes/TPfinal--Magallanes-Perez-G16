@@ -2,6 +2,8 @@ from abc import ABC , abstractmethod
 
 class Vehiculos(ABC):
     def __init__(self, velocidad):
+        if velocidad <= 0:
+            raise ValueError("La velocidad del vehiculo debe ser un valor positivo")
         self.velocidad = velocidad
         self.viajes_realizados = []
         self.disponible = True
