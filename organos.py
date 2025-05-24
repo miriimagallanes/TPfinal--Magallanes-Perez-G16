@@ -7,7 +7,7 @@ class Organo:
         if tipo_org not in self.TIPOS_VALIDOS:
             raise ValueError(f"Tipo de órgano inválido: {tipo_org}. Los tipos válidos son: {self.TIPOS_VALIDOS}")
         self.tipo_org = tipo_org
-        self.fecha_hora_ablacion = None
+        self.fecha_hora_ablacion = None # Se asigna cuando se realice la ablacion
 
     def asignar_fecha_hora_ablacion(self, fecha_hora: datetime):
         self.fecha_hora_ablacion = fecha_hora
@@ -43,8 +43,17 @@ class Organo:
 
     def esta_disponible(self): # Para saber si el órgano ya ha sido ablacionado.
         return self.fecha_hora_ablacion is None
-        
     
+    def __repr__(self):
+        if self.fecha_hora_ablacion:
+            ablacion_estado = "Ablacionado"
+        else:
+            ablacion_estado = "Pendiente"
+        return f"Organo(tipo:{self.tipo_org}, estado: {ablacion_estado}"
+
+    def __bool__(self):
+    # Un órgano listo para trasplante si ha sido ablacionado.
+        return self.fecha_hora_ablacion is not None
 
 
 
