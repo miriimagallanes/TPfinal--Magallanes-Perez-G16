@@ -18,9 +18,20 @@ def__init__(self, tipo_org):
 
 """
 
-# ---- CENTRO DE SALUD ---- #
+# ---- INCUCAI ----# 
 
+""""
+-Un error podria ser cuando se intenta relaizar una operacion
+que no esta registrada en el INCUCAI
 
+-Podria haber un error cuadno se intenta operar con un centro
+de salud que no esta registrado, osea un centro de salud
+que no se encontro.
+Algo como Centro_salud_no_encontrado
+
+-
+
+"""
 
 
 
