@@ -43,6 +43,3 @@ class Donante(Pacientes):
         else:
             print(f"El órgano {organo} no está en la lista de donación de {self.nombre}.")
 
-
-    def get_partido(self):
-        return self.centro_salud_asociado.partido if self.centro_salud_asociado else None

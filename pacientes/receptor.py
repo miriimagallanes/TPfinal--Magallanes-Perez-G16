@@ -24,9 +24,6 @@ class Receptor(Pacientes):
         self.estado = "Inestable"
         print(f"Trasplante fallido para el receptor {self.nombre}. Prioridad ahora es {self.prioridad}, estado Inestable.")
 
-    def es_compatible(self, donante):
-        return self.organo_necesario in donante.organos_a_donar and self.tipo_sangre == donante.tipo_sangre
-
     def renovar_estado(self, nuevo_estado):
         if self.prioridad > 3:
             self.estado = "inestable"
@@ -36,7 +33,6 @@ class Receptor(Pacientes):
         self.patologia = patologia
 
 
-    def get_partido(self):
-        return self.centro_salud_asociado.partido if self.centro_salud_asociado else None
+  
 
 

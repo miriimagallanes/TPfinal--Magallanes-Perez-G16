@@ -32,6 +32,8 @@ class Pacientes(ABC):
         
         return self.__dni
 
+    def get_partido(self):
+        return self.centro_salud_asociado.partido if self.centro_salud_asociado else None
 
     
 
