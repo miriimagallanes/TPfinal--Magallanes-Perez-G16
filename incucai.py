@@ -43,11 +43,9 @@ class INCUCAI:
 
     def buscar_match_receptor(self, receptor):
         coincidencias = []
-        # Aquí la lógica sería buscar donantes con órganos compatibles con el receptor
-        # Esto requeriría iterar sobre los donantes y sus órganos disponibles
         for donante in self.donantes:
             for organo_donado in donante.organos_a_donar:
-                if receptor.es_compatible(donante) and receptor.organo_necesario == organo_donado:
+                if organo_donado.es_compatible(receptor, donante): # Metodo del objeto organo
                     coincidencias.append((donante, organo_donado))
         return coincidencias
 
@@ -64,7 +62,7 @@ class INCUCAI:
 
         # 2. Asignar vehículo y cirujano(llamamos a asignar_recursos que puede lanzar a RecursosInsuficientesError)
         try:
-            vehiculo, cirujano = self.asignar_recursos(receptor, organo)
+            vehiculo, cirujano = self.asignar_recursos(receptor, organo, donante.centro_salud_asociado)
         except RecursosInsuficientesError as e:
             print(f"No se pudo iniciar el protocolo por falta de recursos: {e}")
             return
@@ -134,7 +132,10 @@ class INCUCAI:
         try:
             cirujano_asignado = centro_receptor.seleccionar_cirujano_para_operacion(organo.tipo_org)
         except RecursoNoDisponibleError as e: 
-            raise RecursosInsuficientesError(f"Fallo al asignar cirujano: {e}" 
+            if vehiculo_asignado and not vehiculo_asignado.disponible:
+                vehiculo_asignado.marcar_disponible()
+                print(f"El vehículo ({type(vehiculo_asignado).__name__}) fue liberado debido a un error en la asignación del cirujano.")
+            raise RecursosInsuficientesError(f"Error al asignar cirujano: {e}" 
             ) from e      
 
         print(f"Recursos asignados para el trasplante al receptor {receptor.nombre}:")
@@ -155,32 +156,35 @@ class INCUCAI:
         if not centro_receptor:
             raise CentroSaludNoEncontradoError(f"El receptor {receptor.nombre} no tiene un centro de salud asociado.")
 
-        # 1. Realizar ablación en el centro del donante
+        # 0. Realizar ablación en el centro del donante
         organo_ablacionado = centro_donante.realizar_ablacion(donante, organo_a_donar)
         if not organo_ablacionado:
             print(f"Trasplante fallido, fallo la ablacion del organo {organo_a_donar.tipo_org}.")
             return
 
-        # 2. Calcular la distancia entre centros 
-        distancia_km = centro_receptor.obtener_distancia(centro_donante)
-        if distancia_km is None:
-            print(f"Error: No se pudieron calcular las coordenadas de distancia entre el centro del donante ({centro_donante.nombre}) y el centro del receptor ({centro_receptor.nombre}). Proceso de trasplante abortado.")
-            if vehiculo_asignado:
-                vehiculo_asignado.marcar_disponible()
-                print(f"El vehículo ({type(vehiculo_asignado).__name__}) se marca como disponible nuevamente.")
-            if cirujano_asignado and cirujano_asignado.esta_disponible() == False:
-                cirujano_asignado.resetear_disponibilidad()
-                print(f"El cirujano ({cirujano_asignado.nombre}) se marca como disponible nuevamente.")
+        # 1. Inicializar variables en 0 para asegurar que siempre existan
+        vehiculo_asignado = None
+        cirujano_asignado = None
 
-            return # Detenemos el proceso si no hay distancia
-
-        # 3. Asignar recursos (vehículo y cirujano) 
+        # 2. Asignar recursos (vehículo y cirujano) 
         try:
             vehiculo_asignado, cirujano_asignado = self.asignar_recursos(receptor, organo_ablacionado, centro_donante)
         except RecursosInsuficientesError as e:
             print(f"No se pudo completar el proceso de trasnplante or falta de recursos: {e}")
             return
 
+        # 3. Calcular la distancia entre centros 
+        distancia_km = centro_receptor.obtener_distancia(centro_donante)
+        if distancia_km is None:
+            print(f"Error: No se pudieron calcular las coordenadas de distancia entre el centro del donante ({centro_donante.nombre}) y el centro del receptor ({centro_receptor.nombre}). Proceso de trasplante abortado.")
+            if vehiculo_asignado:
+                vehiculo_asignado.marcar_disponible()
+                print(f"El vehículo ({type(vehiculo_asignado).__name__}) se marca como disponible nuevamente.")
+            if cirujano_asignado and not cirujano_asignado.esta_disponible(): # Pongo not para que este disponible
+                cirujano_asignado.resetear_disponibilidad()
+                print(f"El cirujano ({cirujano_asignado.nombre}) se marca como disponible nuevamente.")
+
+            return 
 
         # 4. Calcular el tiempo de viaje
         tiempo_de_viaje = vehiculo_asignado.calcular_tiempo(distancia_km)
@@ -222,21 +226,7 @@ class INCUCAI:
 
         
 
-    def asignar_recursos_local(self, receptor, organo, centro): # Asignación desde un centro específico
-        if not centro:
-            print(f"No se puede asignar recursos, centro no especificado.")
-            return None, None
-
-        cirujano_asignado = centro.seleccionar_cirujano_para_operacion(organo.tipo_org)
-        if not cirujano_asignado:
-                print(f"No se pudo asignar un cirujano desde el centro {centro.nombre}.")
-                return None
-
-        print(f"Recurso asignado para el trasplante al receptor {receptor.nombre} en el centro {centro.nombre}:")
-        print(f"  Cirujano: {cirujano_asignado.nombre if cirujano_asignado else 'No asignado'}")
-
-        return cirujano_asignado, None # Solo devolvemos el cirujano aquí, el vehículo ya se seleccionó
-
+    
 
 
 

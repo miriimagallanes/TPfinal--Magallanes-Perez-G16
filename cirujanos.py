@@ -27,7 +27,7 @@ class Cirujano:
     def _determinar_exito(self, organo):
         especialidades_por_organo = {
             "corazón": "cardiovascular",
-            "pulmones": "pulmonar",
+            "pulmon": "pulmonar",
             "piel": "plástico",
             "córneas": "plástico",
             "huesos": "traumatólogo",

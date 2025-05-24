@@ -13,3 +13,4 @@ class RecursosInsuficientesError(Exception):
 class RecursoNoDisponibleError(Exception):
     """Excepción cuando no hay un recurso disponible en un centro de salud específico."""
     pass
+
