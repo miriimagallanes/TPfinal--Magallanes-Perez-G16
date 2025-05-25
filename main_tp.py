@@ -6,7 +6,7 @@ from vehiculos.helicoptero import Helicoptero
 from centro_salud import Centro_Salud
 from incucai import INCUCAI
 from cirujanos import Cirujano
-from datetime import datetime
+from datetime import datetime, timedelta
 from excepciones import *
 
 def mostrar_menu():
@@ -75,7 +75,6 @@ def main():
     sistema.registrar_centro_salud(centro_donante)
     sistema.registrar_centro_salud(centro_receptor)
 
-    # Crear pacientes por defecto
     donante_demo = Donante(
         nombre="Juan Demo", dni=123, fecha_nacimiento=datetime(1980, 1, 1),
         sexo="M", telefono="111", tipo_sangre="A+",
@@ -103,14 +102,17 @@ def main():
 
         if opcion == "1":
             sistema.listar_pacientes("donante")
+
         elif opcion == "2":
             sistema.listar_pacientes("receptor")
+
         elif opcion == "3":
             for d in sistema.donantes:
                 print(f"\nDonante: {d.nombre} - DNI: {d.get_dni()}")
                 coincidencias = sistema.buscar_match_donante(d)
                 for o, r in coincidencias:
                     print(f"- Órgano: {o.tipo_org}, Receptor: {r.nombre}")
+
         elif opcion == "4":
             try:
                 dni = int(input("DNI del donante: "))
@@ -123,6 +125,7 @@ def main():
                     print("No hay coincidencias disponibles.")
             except StopIteration:
                 print("Donante no encontrado.")
+
         elif opcion == "5":
             try:
                 dni = int(input("DNI del donante: "))
@@ -131,6 +134,7 @@ def main():
                     print(f"- {o.tipo_org}")
             except StopIteration:
                 print("Donante no encontrado.")
+
         elif opcion == "6":
             try:
                 dni = int(input("Ingrese el DNI del receptor: "))
@@ -139,19 +143,24 @@ def main():
                 print("DNI inválido.")
             except PacienteNoEncontradoError as e:
                 print(e)
+
         elif opcion == "7":
             nombre = input("Ingrese el nombre del centro de salud: ")
             try:
                 sistema.buscar_por_centro(nombre)
             except CentroSaludNoEncontradoError as e:
                 print(e)
+
         elif opcion == "8":
             registrar_donante(sistema, centro_donante)
+
         elif opcion == "9":
             registrar_receptor(sistema, centro_receptor)
+
         elif opcion == "0":
             print("Saliendo del sistema...")
             break
+
         else:
             print("Opción inválida. Intente de nuevo.")
 

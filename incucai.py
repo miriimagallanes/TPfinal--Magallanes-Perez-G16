@@ -186,10 +186,11 @@ class INCUCAI:
 
             return 
 
-        # 4. Calcular el tiempo de viaje
-        tiempo_de_viaje = vehiculo_asignado.calcular_tiempo(distancia_km)
+        tiempo_en_horas = vehiculo_asignado.calcular_tiempo(distancia_km)
+        tiempo_de_viaje = timedelta(hours=tiempo_en_horas)
         print(f"Tiempo de viaje estimado: {tiempo_de_viaje}.")
         momento_llegada = organo_ablacionado.fecha_hora_ablacion + tiempo_de_viaje
+
         vehiculo_asignado.registrar_viaje(distancia=distancia_km, trafico = None, tiempo_estimado=tiempo_de_viaje)
 
         # 5. Verificar viabilidad del órgano (20 horas desde la ablación)
@@ -224,7 +225,21 @@ class INCUCAI:
                  cirujano_asignado.resetear_disponibilidad()
                  print(f"El cirujano ({cirujano_asignado.nombre}) se marca como disponible nuevamente.")
 
-        
+    def registrar_resultado_trasplante(self, receptor, organo, exito):
+        resultado = {
+            "receptor": receptor.nombre,
+            "dni": receptor.get_dni(),
+            "organo": organo.tipo_org,
+            "fecha": datetime.now(),
+            "exito": exito
+        }
+        self.trasplantes_realizados.append(resultado)
+
+        if exito:
+            print(f"\n✔ Trasplante registrado exitosamente.")
+        else:
+            print(f"\n✘ Se registró un trasplante fallido.")
+  
 
     
 
