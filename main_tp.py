@@ -30,17 +30,31 @@ def registrar_donante(sistema, centro):
         sexo = input("Sexo: ")
         telefono = input("Teléfono: ")
         tipo_sangre = input("Tipo de sangre: ")
-        fecha_falle = datetime.strptime(input("Fecha de fallecimiento (YYYY-MM-DD): "), "%Y-%m-%d")
-        hora_falle = datetime.strptime(input("Hora de fallecimiento (HH:MM): "), "%H:%M")
-        fecha_abl = datetime.strptime(input("Fecha de ablación (YYYY-MM-DD): "), "%Y-%m-%d")
-        hora_abl = datetime.strptime(input("Hora de ablación (HH:MM): "), "%H:%M")
+
+        fallecido = input("¿El donante ya ha fallecido? (s/n): ").lower()
+
+        if fallecido == "s":
+            fecha_falle = datetime.strptime(input("Fecha de fallecimiento (YYYY-MM-DD): "), "%Y-%m-%d")
+            hora_falle = datetime.strptime(input("Hora de fallecimiento (HH:MM): "), "%H:%M")
+            fecha_abl = datetime.strptime(input("Fecha de ablación (YYYY-MM-DD): "), "%Y-%m-%d")
+            hora_abl = datetime.strptime(input("Hora de ablación (HH:MM): "), "%H:%M")
+        else:
+            fecha_falle = None
+            hora_falle = None
+            fecha_abl = None
+            hora_abl = None
+
         organos = input("Órganos a donar (separados por coma): ").split(",")
         organos = [o.strip() for o in organos]
-        d = Donante(nombre, dni, fecha_nac, sexo, telefono, tipo_sangre, centro,
-                   fecha_falle, hora_falle, fecha_abl, hora_abl, organos)
-        sistema.registrar_paciente(d)
+
+        donante = Donante(nombre, dni, fecha_nac, sexo, telefono, tipo_sangre, centro,
+                          fecha_falle, hora_falle, fecha_abl, hora_abl, organos)
+
+        sistema.registrar_paciente(donante)
+
     except Exception as e:
         print(f"Error al registrar donante: {e}")
+
 
 def registrar_receptor(sistema, centro):
     try:
