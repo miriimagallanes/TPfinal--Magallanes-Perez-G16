@@ -20,7 +20,7 @@ class Receptor(Pacientes):
         return random.randint(1, 5)
 
     def trasplante_fallido(self):
-        self.prioridad = 1 # Se setea a la mayor prioridad (según enunciado)
+        self.prioridad = 5 # Se setea a la mayor prioridad (según enunciado)
         self.estado = "Inestable"
         print(f"Trasplante fallido para el receptor {self.nombre}. Prioridad ahora es {self.prioridad}, estado Inestable.")
 
