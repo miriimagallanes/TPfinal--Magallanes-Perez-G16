@@ -220,6 +220,9 @@ class INCUCAI:
             if exito:
                 self.receptores.remove(receptor)
                 print(f"Receptor {receptor.nombre} removido de la lista después del trasplante.")
+            if not donante.organos_a_donar:  # Si ya no tiene órganos
+                self.donantes.remove(donante)
+                print(f"Donante {donante.nombre} eliminado del sistema. Ya no tiene más órganos disponibles.")
 
             # 9. Liberar el vehículo después del traslado (al centro receptor)
             vehiculo_asignado.marcar_disponible()
@@ -249,10 +252,11 @@ class INCUCAI:
             print(f"\n✔ Trasplante registrado exitosamente.")
         else:
             print(f"\n✘ Se registró un trasplante fallido.")
-  
+       
 
     
 
+          
 
 
 
