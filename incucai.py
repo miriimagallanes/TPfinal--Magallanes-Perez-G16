@@ -1,7 +1,7 @@
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
 from datetime import datetime, timedelta
-from excepciones import PacienteNoEncontradoError, CentroSaludNoEncontradoError, RecursosInsuficientesError, RecursoNoDisponibleError
+from excepciones import PacienteNoEncontradoError, CentroSaludNoEncontradoError, RecursosInsuficientesError, RecursoNoDisponibleError, PacienteYaRegistradoError
 
 class INCUCAI:
     def __init__(self):
@@ -11,20 +11,27 @@ class INCUCAI:
         self.trasplantes_realizados = []
     
     def registrar_paciente(self, paciente):
+        dni_nuevo = paciente.get_dni() # Obtener el DNI del paciente a registrar
+
+        # Verificar si el DNI ya existe en la lista de donantes
+        for d in self.donantes:
+            if d.get_dni() == dni_nuevo:
+                raise PacienteYaRegistradoError(f"Error: El DNI {dni_nuevo} ya está registrado como donante.")
+
+        # Verificar si el DNI ya existe en la lista de receptores
+        for r in self.receptores:
+            if r.get_dni() == dni_nuevo:
+                raise PacienteYaRegistradoError(f"Error: El DNI {dni_nuevo} ya está registrado como receptor.")
+
+        # Si el DNI es único, proceder con el registro
         if isinstance(paciente, Donante):
-            if paciente not in self.donantes:
-                self.donantes.append(paciente)
-                print(f"Donante {paciente.nombre} registrado en el sistema.")
-            else:
-                print(f"El donante {paciente.nombre} ya está registrado.")
+            self.donantes.append(paciente)
+            print(f"Donante {paciente.nombre} (DNI: {dni_nuevo}) registrado con éxito.")
         elif isinstance(paciente, Receptor):
-            if paciente not in self.receptores:
-                self.receptores.append(paciente)
-                print(f"Receptor {paciente.nombre} registrado en el sistema.")
-            else:
-                print(f"El receptor {paciente.nombre} ya está registrado.")
+            self.receptores.append(paciente)
+            print(f"Receptor {paciente.nombre} (DNI: {dni_nuevo}) registrado con éxito.")
         else:
-            print("Tipo de paciente no reconocido.")
+            print("Tipo de paciente no reconocido y no puede ser registrado.")
 
     def registrar_centro_salud(self, centro):
         if centro not in self.centros_salud:

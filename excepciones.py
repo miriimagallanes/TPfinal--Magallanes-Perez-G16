@@ -14,3 +14,6 @@ class RecursoNoDisponibleError(Exception):
     """Excepción cuando no hay un recurso disponible en un centro de salud específico."""
     pass
 
+class PacienteYaRegistradoError(Exception):
+    """Excepción cuando se intenta registrar un paciente con un DNI ya existente."""
+    pass
