@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class Organo:
-    TIPOS_VALIDOS = ["corazon", "higado", "riñon", "pulmon", "pancreas", "piel", "huesos", "intestino", "corneas"]
+    TIPOS_VALIDOS = ["corazon", "higado", "riñones", "pulmones", "pancreas", "piel", "huesos", "intestino", "corneas"]
 
     def __init__(self, tipo_org):
         if tipo_org not in self.TIPOS_VALIDOS:
