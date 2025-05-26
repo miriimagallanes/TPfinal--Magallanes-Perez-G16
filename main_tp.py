@@ -83,14 +83,14 @@ def main():
         hora_fallecimiento=datetime(2025, 5, 20, 2, 0),
         fecha_inicio_ablacion=datetime(2025, 5, 20),
         hora_inicio_ablacion=datetime(2025, 5, 20, 3, 0),
-        organos_a_donar_str=["corazón", "hígado"]
+        organos_a_donar_str=["corazon", "higado"]
     )
 
     receptor_demo = Receptor(
         nombre="Ana Demo", dni=456, fecha_nacimiento=datetime(1990, 1, 1),
         sexo="F", telefono="222", tipo_sangre="A+",
         centro_salud_asociado=centro_receptor,
-        organo_necesario="corazón", fecha_ingreso_lista=datetime(2025, 5, 1)
+        organo_necesario="corazon", fecha_ingreso_lista=datetime(2025, 5, 1)
     )
 
     sistema.registrar_paciente(donante_demo)
