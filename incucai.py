@@ -121,10 +121,13 @@ class INCUCAI:
 
     def buscar_prioridad_receptor(self, dni):
         for receptor in self.receptores:
-            if receptor.get_dni() == dni:
-                print(f"La prioridad del receptor con DNI {dni} es: {receptor.prioridad}")
-                return
-        raise PacienteNoEncontradoError(f"No se encontro ningun receptor con el DNI {dni}")
+         if receptor.get_dni() == dni:
+            print(f"Receptor: {receptor.nombre}")
+            print(f"Prioridad: {receptor.prioridad}")
+            print(f"Estado: {receptor.estado}")
+            return
+        raise PacienteNoEncontradoError(f"No se encontró ningún receptor con el DNI {dni}")
+
     
 
     def asignar_recursos(self, receptor, organo, centro_donante):

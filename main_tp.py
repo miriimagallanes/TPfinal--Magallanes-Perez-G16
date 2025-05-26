@@ -40,7 +40,7 @@ def registrar_donante(sistema, centro):
                    fecha_falle, hora_falle, fecha_abl, hora_abl, organos)
         sistema.registrar_paciente(d)
     except Exception as e:
-        print(f"Error al registrar donante(ingresaste mal un dato): {e}")
+        print(f"Error al registrar donante: {e}")
 
 def registrar_receptor(sistema, centro):
     try:
@@ -56,7 +56,7 @@ def registrar_receptor(sistema, centro):
                    organo, fecha_lista)
         sistema.registrar_paciente(r)
     except Exception as e:
-        print(f"Error al registrar receptor(ingresante mal un dato): {e}")
+        print(f"Error al registrar receptor: {e}")
 
 def main():
     centro_donante = Centro_Salud("Hospital Donante", "Calle 1", "Partido A", "Provincia X", "111", -34.60, -58.38)
