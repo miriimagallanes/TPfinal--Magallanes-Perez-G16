@@ -26,15 +26,15 @@ class Cirujano:
 
     def _determinar_exito(self, organo):
         especialidades_por_organo = {
-            "corazón": "cardiovascular",
+            "corazon": "cardiovascular",
             "pulmon": "pulmonar",
             "piel": "plástico",
-            "córneas": "plástico",
+            "corneas": "plástico",
             "huesos": "traumatólogo",
             "intestino": "gastroenterólogo",
-            "riñón": "gastroenterólogo",
+            "riñon": "gastroenterólogo",
             "hígado": "gastroenterólogo",
-            "páncreas": "gastroenterólogo"
+            "pancreas": "gastroenterólogo"
         }
         especialidad_requerida = especialidades_por_organo.get(organo)
 

@@ -126,15 +126,15 @@ class Centro_Salud:
         
     def _obtener_especialidad_para_organo(self, organo):
         especialidades_por_organo = {
-            "corazón": "cardiovascular",
+            "corazon": "cardiovascular",
             "pulmon": "pulmonar",
             "piel": "plástico",
-            "córneas": "plástico",
+            "corneas": "plástico",
             "huesos": "traumatólogo",
             "intestino": "gastroenterólogo",
-            "riñón": "gastroenterólogo",
+            "riñon": "gastroenterólogo",
             "hígado": "gastroenterólogo",
-            "páncreas": "gastroenterólogo"
+            "pancreas": "gastroenterólogo"
         }
         return especialidades_por_organo.get(organo)
 
