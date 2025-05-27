@@ -165,12 +165,16 @@ class INCUCAI:
             raise CentroSaludNoEncontradoError(f"El donante {donante.nombre} no tiene un centro de salud asociado.")
         if not centro_receptor:
             raise CentroSaludNoEncontradoError(f"El receptor {receptor.nombre} no tiene un centro de salud asociado.")
-
-        # 0. Realizar ablación en el centro del donante
-        organo_ablacionado = centro_donante.realizar_ablacion(donante, organo_a_donar)
-        if not organo_ablacionado:
-            print(f"Trasplante fallido, fallo la ablacion del organo {organo_a_donar.tipo_org}.")
+        
+        
+        #busco si el organo ya fue extraido
+        if organo_a_donar.fecha_hora_ablacion is None:
+            print(f"El órgano {organo_a_donar.tipo_org} aún no ha sido ablacionado. No se puede continuar con el trasplante.")
             return
+
+
+        
+        
 
         # 1. Inicializar variables en 0 para asegurar que siempre existan
         vehiculo_asignado = None
@@ -178,7 +182,8 @@ class INCUCAI:
 
         # 2. Asignar recursos (vehículo y cirujano) 
         try:
-            vehiculo_asignado, cirujano_asignado = self.asignar_recursos(receptor, organo_ablacionado, centro_donante)
+            vehiculo_asignado, cirujano_asignado = self.asignar_recursos(receptor, organo_a_donar, centro_donante)
+
         except RecursosInsuficientesError as e:
             print(f"No se pudo completar el proceso de trasnplante or falta de recursos: {e}")
             return
@@ -199,22 +204,25 @@ class INCUCAI:
         tiempo_en_horas = vehiculo_asignado.calcular_tiempo(distancia_km)
         tiempo_de_viaje = timedelta(hours=tiempo_en_horas)
         print(f"Tiempo de viaje estimado: {tiempo_de_viaje}.")
-        momento_llegada = organo_ablacionado.fecha_hora_ablacion + tiempo_de_viaje
+        momento_llegada = organo_a_donar.fecha_hora_ablacion + tiempo_de_viaje
+
 
         vehiculo_asignado.registrar_viaje(distancia=distancia_km, trafico = None, tiempo_estimado=tiempo_de_viaje)
 
         # 5. Verificar viabilidad del órgano (20 horas desde la ablación)
         tiempo_transcurrido_maximo = timedelta(hours=20)
-        tiempo_hasta_llegada = momento_llegada - organo_ablacionado.fecha_hora_ablacion
+        tiempo_hasta_llegada = momento_llegada - organo_a_donar.fecha_hora_ablacion
+
 
         if tiempo_hasta_llegada <= tiempo_transcurrido_maximo:
             print(f"El órgano llegará en {tiempo_hasta_llegada}, dentro del límite de viabilidad.")
 
             # 6. Realizar el trasplante en el centro del receptor
-            exito = centro_receptor.realizar_trasplante(receptor, organo_ablacionado, cirujano_asignado)
+            exito = centro_receptor.realizar_trasplante(receptor, organo_a_donar, cirujano_asignado)
+
 
             # 7. Registrar el resultado
-            self.registrar_resultado_trasplante(receptor, organo_ablacionado, exito)
+            self.registrar_resultado_trasplante(receptor, organo_a_donar, exito)
 
             # 8. Actualizar listas
             if exito:
@@ -257,8 +265,5 @@ class INCUCAI:
     
 
           
-
-
-
 
 

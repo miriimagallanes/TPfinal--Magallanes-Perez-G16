@@ -20,6 +20,7 @@ def mostrar_menu():
     print("7. Buscar pacientes por centro de salud")
     print("8. Registrar nuevo donante")
     print("9. Registrar nuevo receptor")
+    print("10. Realizar ablación de un órgano")
     print("0. Salir")
 
 def registrar_donante(sistema, centro):
@@ -130,6 +131,10 @@ def main():
         elif opcion == "4":
             try:
                 dni = int(input("DNI del donante: "))
+      
+       
+        
+
                 donante = next(d for d in sistema.donantes if d.get_dni() == dni)
                 coincidencias = sistema.buscar_match_donante(donante)
                 if coincidencias:
@@ -139,7 +144,8 @@ def main():
                     print("No hay coincidencias disponibles.")
             except StopIteration:
                 print("Donante no encontrado.")
-
+                
+             
         elif opcion == "5":
             try:
                 dni = int(input("DNI del donante: "))
@@ -171,10 +177,48 @@ def main():
         elif opcion == "9":
             registrar_receptor(sistema, centro_receptor)
 
+        # En el archivo del menú interactivo (por ejemplo main_tp.py)
+# Agregar esta opción dentro del bucle principal del menú:
+
+        elif opcion == "10":
+            try:
+                dni = int(input("DNI del donante para realizar ablación: "))
+                donante = next(d for d in sistema.donantes if d.get_dni() == dni)
+
+                # Mostrar órganos disponibles (no ablacionados)
+                disponibles = [o for o in donante.organos_a_donar if o.fecha_hora_ablacion is None]
+                if not disponibles:
+                    print("Este donante no tiene órganos disponibles para ablación.")
+                else:
+                    print("\nÓrganos disponibles para ablación:")
+                    for idx, o in enumerate(disponibles):
+                        print(f"{idx+1}. {o.tipo_org}")
+
+                    opcion_organo = int(input("Seleccione el número del órgano a ablacionar: "))
+                    organo_elegido = disponibles[opcion_organo - 1]
+
+                    centro = donante.centro_salud_asociado
+                    if centro:
+                        centro.realizar_ablacion(donante, organo_elegido)
+                        # Si ya no quedan órganos ablacionables ni ablacionados, se elimina el donante
+                        if not donante.organos_a_donar:
+                            sistema.donantes.remove(donante)
+                            print(f"Donante {donante.nombre} eliminado de la lista: sin órganos restantes.")
+                    else:
+                        print("El donante no tiene un centro de salud asociado.")
+
+            except StopIteration:
+                print("Donante no encontrado.")
+            except (ValueError, IndexError):
+                print("Entrada inválida. Selección cancelada.")
+
+
+
         elif opcion == "0":
             print("Saliendo del sistema...")
             break
-
+        
+        
         else:
             print("Opción inválida. Intente de nuevo.")
 

@@ -43,3 +43,4 @@ class Donante(Pacientes):
         else:
             print(f"El órgano {organo} no está en la lista de donación de {self.nombre}.")
 
+   
