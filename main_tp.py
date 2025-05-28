@@ -74,24 +74,40 @@ def registrar_receptor(sistema, centro):
         print(f"Error al registrar receptor: {e}")
 
 def main():
-    centro_donante = Centro_Salud("Hospital Donante", "Calle 1", "Partido A", "Provincia X", "111", -34.60, -58.38)
-    centro_receptor = Centro_Salud("Hospital Receptor", "Calle 2", "Partido B", "Provincia Y", "222", -33.0, -60.0)
+    centro_donante = Centro_Salud("Hospital CABA", "Av. Cordoba 3456", "CABA", "CABA", "111", -34.6037, -58.3816)
+    centro_receptor = Centro_Salud("Hospital General Belgrano", "Av. de los Incas 1234", "San Martín", "Buenos Aires", "222", -34.5705, -58.5296)
+    centro_donante_1 = Centro_Salud("Hospital San Isidro", "Av. Centenario 123", "San Isidro", "Buenos Aires", "011-1111", latitud=-34.472, longitud=-58.523)
+    centro_donante_2 = Centro_Salud("Hospital Rosario", "Bv. Oroño 456", "Rosario", "Santa Fe", "0341-2222", latitud=-32.9442, longitud=-60.6505)
+    centro_receptor_1 = Centro_Salud("Hospital Mendoza", "Av. San Martín 789", "Capital", "Mendoza", "0261-3333", latitud=-32.8908, longitud=-68.8272)
+    centro_receptor_2 = Centro_Salud("Hospital La Plata", "Calle 12 321", "La Plata", "Buenos Aires", "0221-4444", latitud=-34.9214, longitud=-57.9544)
+
 
     centro_receptor.agregar_vehiculo(Vehiculo_terrestre(60))
     centro_receptor.agregar_vehiculo(Helicoptero(200))
     centro_receptor.agregar_vehiculo(Avion(800))
 
-    centro_receptor.agregar_cirujano(Cirujano("Dr. López", ["cardiovascular"]))
-    centro_receptor.agregar_cirujano(Cirujano("Dra. Pérez", ["gastroenterólogo"]))
-    centro_receptor.agregar_cirujano(Cirujano("Dr. García"))
+    centro_receptor.agregar_cirujano(Cirujano("Dr. López", ["cardiovascular"], "MP19002" ))
+    centro_receptor.agregar_cirujano(Cirujano("Dra. Pérez", ["gastroenterólogo"],"MP1234"))
+    centro_receptor.agregar_cirujano(Cirujano("Dr. García",["cardiovascular"], "MP1034"))
+    centro_donante_1.agregar_cirujano( Cirujano("Dr. Laura Respira",["pulmonar"],"MP1001"))         
+    centro_donante_2.agregar_cirujano(Cirujano("Dr. Ernesto Dermis",["plástico"],"MP1002"))    
+    centro_receptor_1.agregar_cirujano(Cirujano("Dra. Carla Huesos",["traumatólogo"],"MP1003"))        
+    centro_receptor_2.agregar_cirujano(Cirujano("Dr. Pablo General", [],"MP0000"))         
+
 
     sistema = INCUCAI()
 
+    print()
     sistema.registrar_centro_salud(centro_donante)
     sistema.registrar_centro_salud(centro_receptor)
+    sistema.registrar_centro_salud(centro_donante_1)
+    sistema.registrar_centro_salud(centro_donante_2)
+    sistema.registrar_centro_salud(centro_receptor_1)
+    sistema.registrar_centro_salud(centro_receptor_2)
+    print()
 
     donante_demo = Donante(
-        nombre="Juan Demo", dni=123, fecha_nacimiento=datetime(1980, 1, 1),
+        nombre="Juan Romero", dni=123, fecha_nacimiento=datetime(1980, 1, 1),
         sexo="M", telefono="111", tipo_sangre="A+",
         centro_salud_asociado=centro_donante,
         fecha_fallecimiento=datetime(2025, 5, 20),
@@ -101,15 +117,57 @@ def main():
         organos_a_donar_str=["corazon", "higado"]
     )
 
+    donante_demo_1 = Donante(
+        nombre="Miriam Gómez", dni=124, fecha_nacimiento=datetime(1975, 3, 10),
+        sexo="F", telefono="222", tipo_sangre="B+",
+        centro_salud_asociado=centro_donante_1,
+        fecha_fallecimiento=datetime(2025, 5, 21),
+        hora_fallecimiento=datetime(2025, 5, 21, 4, 30),
+        fecha_inicio_ablacion=datetime(2025, 5, 21),
+        hora_inicio_ablacion=datetime(2025, 5, 21, 6, 0),
+        organos_a_donar_str=["pulmones", "riñones"]
+    )
+    
+    donante_demo_2 = Donante(
+        nombre="Carlos Pérez", dni=125, fecha_nacimiento=datetime(1965, 7, 15),
+        sexo="M", telefono="333", tipo_sangre="O-",
+        centro_salud_asociado=centro_donante_2,
+        fecha_fallecimiento=datetime(2025, 5, 22),
+        hora_fallecimiento=datetime(2025, 5, 22, 1, 0),
+        fecha_inicio_ablacion=datetime(2025, 5, 22),
+        hora_inicio_ablacion=datetime(2025, 5, 22, 2, 30),
+        organos_a_donar_str=["pancreas", "piel"]
+    )
+
     receptor_demo = Receptor(
-        nombre="Ana Demo", dni=456, fecha_nacimiento=datetime(1990, 1, 1),
+        nombre="Ana Perla", dni=456, fecha_nacimiento=datetime(1990, 1, 1),
         sexo="F", telefono="222", tipo_sangre="A+",
         centro_salud_asociado=centro_receptor,
         organo_necesario="corazon", fecha_ingreso_lista=datetime(2025, 5, 1)
     )
 
+    receptor_demo_1 = Receptor(
+        nombre="María López", dni=457, fecha_nacimiento=datetime(1985, 6, 20),
+        sexo="F", telefono="444", tipo_sangre="B+",
+        centro_salud_asociado=centro_receptor_1,
+        organo_necesario="rinon", fecha_ingreso_lista=datetime(2025, 4, 15)
+    )
+
+    receptor_demo_2 = Receptor(
+        nombre="José Martínez", dni=458, fecha_nacimiento=datetime(2000, 9, 5),
+        sexo="M", telefono="555", tipo_sangre="O-",
+        centro_salud_asociado=centro_receptor_2,
+        organo_necesario="higado", fecha_ingreso_lista=datetime(2025, 4, 20)
+    )
+
     sistema.registrar_paciente(donante_demo)
+    sistema.registrar_paciente(donante_demo_1)
+    sistema.registrar_paciente(donante_demo_2)
+    print()
     sistema.registrar_paciente(receptor_demo)
+    sistema.registrar_paciente(receptor_demo_1)
+    sistema.registrar_paciente(receptor_demo_2)
+    print()
 
     while True:
         mostrar_menu()
