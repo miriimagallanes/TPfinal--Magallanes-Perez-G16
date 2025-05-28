@@ -3,8 +3,25 @@ from abc import ABC #, abstractmethod
 # @abstractmethod 
 
 class Pacientes(ABC):
+    """
+    Clase abstracta base para representar a los pacientes del sistema,
+    ya sean donantes o receptores. Contiene atributos y métodos comunes
+    para la identificación y asociación a un centro de salud.
   
+    """
     def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado = None):
+        """
+        Inicializa un nuevo Pacientes.
+
+        Params:
+            nombre (str): Nombre completo del paciente.
+            dni (int): Número de DNI único del paciente.
+            fecha_nacimiento (datetime): Fecha de nacimiento del paciente.
+            sexo (str): Sexo del paciente.
+            telefono (str): Número de teléfono.
+            tipo_sangre (str): Tipo de sangre del paciente.
+            centro_salud_asociado (Centro_Salud, optional): Centro de salud al que pertenece (puede ser None).
+        """
         self.nombre = nombre
         self.__dni = dni 
         self.fecha_nacimiento = fecha_nacimiento
@@ -13,7 +30,15 @@ class Pacientes(ABC):
         self.tipo_sangre = tipo_sangre
         self.centro_salud_asociado = centro_salud_asociado 
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """
+        Retorna una representación en texto del paciente, muestra los datos básicos
+        del paciente y el nombre del centro de salud asociado.
+
+        Returns:
+            str: Cadena de texto con la información principal del paciente.
+        """
+
         if self.centro_salud_asociado:
             centro_salud_nombre = self.centro_salud_asociado.nombre 
         else:
@@ -28,11 +53,23 @@ class Pacientes(ABC):
             f"\nCentro de Salud: {centro_salud_nombre}"
         )
     
-    def get_dni(self):
+    def get_dni(self) -> int:
+        """
+        Retorna el número de DNI del paciente.
+
+        Returns:
+            int: DNI del paciente.
+        """
         
         return self.__dni
 
     def get_partido(self):
+        """
+         Retorna el partido del centro de salud asociado, si existe.
+
+        Returns:
+             El nombre del partido o None si no hay centro asociado.
+        """
         return self.centro_salud_asociado.partido if self.centro_salud_asociado else None
 
     
