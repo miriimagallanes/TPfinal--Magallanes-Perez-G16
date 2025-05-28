@@ -93,8 +93,11 @@ class Centro_Salud:
         if organo_a_ablacion in donante.organos_a_donar and organo_a_ablacion.fecha_hora_ablacion is None:
             organo_a_ablacion.asignar_fecha_hora_ablacion(datetime.now())
             donante.organos_a_donar.remove(organo_a_ablacion)
-            print(f"Centro {self.nombre}: Ablación de {organo_a_ablacion.tipo_org} realizada al donante {donante.nombre} a las {organo_a_ablacion.fecha_hora_ablacion}.")
+            donante.organos_ablacionados.append(organo_a_ablacion)  # Agregar aquí
+            print(f"Ablación de {organo_a_ablacion.tipo_org} realizada.")
             return organo_a_ablacion
+    
+
         elif organo_a_ablacion not in donante.organos_a_donar:
             print(f"Centro {self.nombre}: El órgano {organo_a_ablacion.tipo_org} no está en la lista de donación de {donante.nombre}.")
             return None

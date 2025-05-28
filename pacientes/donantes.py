@@ -13,6 +13,7 @@ class Donante(Pacientes):
         self.fecha_inicio_ablacion = fecha_inicio_ablacion
         self.hora_inicio_ablacion = hora_inicio_ablacion
         self.organos_a_donar = [] # Inicializamos como lista vacía
+        self.organos_ablacionados = []
         if organos_a_donar_str is not None:
             self._crear_objetos_organo(organos_a_donar_str)
         else:

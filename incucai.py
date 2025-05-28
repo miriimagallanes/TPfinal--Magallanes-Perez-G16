@@ -42,7 +42,8 @@ class INCUCAI:
 
     def buscar_match_donante(self, donante):
         coincidencias = []
-        for organo_donado in donante.organos_a_donar:
+        for organo_donado in donante.organos_ablacionados:
+
             for receptor in self.receptores:
                 if organo_donado.es_compatible(receptor, donante): # Pasamos el donante
                     coincidencias.append((organo_donado, receptor))
@@ -54,6 +55,11 @@ class INCUCAI:
             for organo_donado in donante.organos_a_donar:
                 if organo_donado.es_compatible(receptor, donante): # Metodo del objeto organo
                     coincidencias.append((donante, organo_donado))
+
+            for organo_extraido in donante.organos_ablacionados:
+                if organo_extraido.es_compatible(receptor, donante):
+                    coincidencias.append((donante, organo_extraido))
+                                
         return coincidencias
 
     def iniciar_protocolo(self, donante, receptor, organo):
