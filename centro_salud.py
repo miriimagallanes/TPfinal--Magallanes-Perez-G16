@@ -7,9 +7,28 @@ from vehiculos.helicoptero import Helicoptero
 from math import radians, cos, sin, atan2, sqrt
 from excepciones import RecursoNoDisponibleError
 from cirujanos import Cirujano 
+from organos import Organo
  
 class Centro_Salud:
-    def __init__(self, nombre, direccion, partido, provincia, telefono, latitud=None, longitud=None):
+    """
+    Representa un centro de salud donde trabajan cirujanos y se alojan vehículos médicos.
+
+    Permite registrar recursos, realizar ablaciones, trasplantes y seleccionar personal y vehículos.
+    """
+    def __init__(self, nombre: str, direccion: str, partido: str, provincia: str, telefono: str,
+                 latitud: float = None, longitud: float = None):
+        """
+        Inicializa un centro de salud.
+
+        Params:
+            nombre (str): Nombre del centro.
+            direccion (str): Dirección del centro.
+            partido (str): Partido al que pertenece.
+            provincia (str): Provincia del centro.
+            telefono (str): Teléfono de contacto.
+            latitud (float, optional): Coordenada geográfica.
+            longitud (float, optional): Coordenada geográfica.
+        """
         self.nombre = nombre
         self.direccion = direccion
         self.partido = partido
@@ -20,13 +39,35 @@ class Centro_Salud:
         self.latitud = latitud
         self.longitud = longitud
 
-    def agregar_cirujano(self, cirujano):
+    def agregar_cirujano(self, cirujano: 'Cirujano') -> None:
+        """
+        Agrega un cirujano al centro.
+
+        Effects:
+            Modifica la lista interna de cirujanos.
+        """
         self.cirujanos.append(cirujano)
 
-    def agregar_vehiculo(self, vehiculo):
+    def agregar_vehiculo(self, vehiculo: 'Vehiculos') -> None:
+        """
+        Agrega un vehículo al centro.
+
+        Effects:
+            Modifica la lista interna de vehículos.
+        """
         self.vehiculos.append(vehiculo)
 
-    def buscar_pacientes(self, tipo, lista_pacientes):
+    def buscar_pacientes(self, tipo: str, lista_pacientes: list) -> list:
+        """
+        Filtra pacientes asociados al centro de acuerdo al tipo.
+
+        Params:
+            tipo (str): "donante" o "receptor"
+            lista_pacientes (list): Lista general de pacientes.
+
+        Returns:
+            list: Lista de pacientes del tipo dado asociados a este centro.
+        """
         pacientes_encontrados = []
         for paciente in lista_pacientes:
             if paciente.centro_salud_asociado == self and \
@@ -35,7 +76,20 @@ class Centro_Salud:
                 pacientes_encontrados.append(paciente)
         return pacientes_encontrados
 
-    def seleccionar_vehiculo_para_traslado(self, centro_receptor):
+    def seleccionar_vehiculo_para_traslado(self, centro_receptor: 'Centro_Salud'): #-> 'Vehiculos':
+        """
+        Selecciona el vehículo más adecuado según la distancia al centro receptor.
+
+        Params:
+            centro_receptor (Centro_Salud): Centro de destino.
+
+        Returns:
+            Vehiculos: Vehículo seleccionado.
+
+        Raises:
+            RecursoNoDisponibleError: Si no hay vehículos adecuados o falta información.
+        """
+
         vehiculo_seleccionado = None
         distancia = self.obtener_distancia(centro_receptor)
 
@@ -64,7 +118,19 @@ class Centro_Salud:
 
         return vehiculo_seleccionado
 
-    def seleccionar_cirujano_para_operacion(self, organo):
+    def seleccionar_cirujano_para_operacion(self, organo: str) -> 'Cirujano':
+        """
+        Selecciona un cirujano disponible que pueda operar el órgano.
+
+        Params:
+            organo (str): Tipo de órgano que requiere intervención.
+
+        Returns:
+            Cirujano: Cirujano disponible.
+
+        Raises:
+            RecursoNoDisponibleError: Si no hay cirujanos disponibles.
+        """
         cirujano_seleccionado = None
         especialidad_requerida = self._obtener_especialidad_para_organo(organo)
 
@@ -89,7 +155,20 @@ class Centro_Salud:
            raise RecursoNoDisponibleError(f"No hay cirujano disponible en el centro {self.nombre} para la operación de {organo}.")
         return cirujano_seleccionado
     
-    def realizar_ablacion(self, donante, organo_a_ablacion):
+    def realizar_ablacion(self, donante: 'Donante', organo_a_ablacion: 'Organo') -> 'Organo':
+        """
+        Asigna fecha de ablación a un órgano y lo remueve del donante.
+
+        Params:
+            donante (Donante): Donante al que se le realiza la ablación.
+            organo_a_ablacion (Organo): Órgano a ablacionar.
+
+        Returns:
+            Organo: El órgano ablacionado si fue exitoso, None en caso contrario.
+
+        Effects:
+            Modifica lista de órganos del donante y marca fecha de ablación.
+        """
         if organo_a_ablacion in donante.organos_a_donar and organo_a_ablacion.fecha_hora_ablacion is None:
             organo_a_ablacion.asignar_fecha_hora_ablacion(datetime.now())
             donante.organos_a_donar.remove(organo_a_ablacion)
@@ -105,7 +184,21 @@ class Centro_Salud:
             print(f"Centro {self.nombre}: El órgano {organo_a_ablacion.tipo_org} ya ha sido ablacionado del donante {donante.nombre}.")
             return None
 
-    def realizar_trasplante(self, receptor, organo, cirujano):
+    def realizar_trasplante(self, receptor: 'Receptor', organo: 'Organo', cirujano: 'Cirujano') -> bool:
+        """
+        Realiza un trasplante en caso de que el órgano siga siendo viable.
+
+        Params:
+            receptor (Receptor): Receptor del órgano.
+            organo (Organo): Órgano a trasplantar.
+            cirujano (Cirujano): Cirujano encargado.
+
+        Returns:
+            bool: True si fue exitoso, False si falló o no es viable.
+
+        Effects:
+            Puede modificar el estado del receptor y registrar operación en el cirujano.
+        """
         if organo.fecha_hora_ablacion:
             tiempo_transcurrido = datetime.now() - organo.fecha_hora_ablacion
             if tiempo_transcurrido <= timedelta(hours=20):
@@ -127,7 +220,16 @@ class Centro_Salud:
             print(f"Centro {self.nombre}: El órgano {organo.tipo_org} no tiene fecha y hora de ablación registrada.")
             return False
         
-    def _obtener_especialidad_para_organo(self, organo):
+    def _obtener_especialidad_para_organo(self, organo: str) -> str:
+        """
+        Devuelve la especialidad médica requerida para operar un órgano.
+
+        Params:
+            organo (str): Tipo de órgano.
+
+        Returns:
+            str: Especialidad requerida o None si no hay coincidencia.
+        """
         especialidades_por_organo = {
             "corazon": "cardiovascular",
             "pulmon": "pulmonar",
@@ -141,7 +243,16 @@ class Centro_Salud:
         }
         return especialidades_por_organo.get(organo)
 
-    def obtener_distancia(self, otro_centro):
+    def obtener_distancia(self, otro_centro: 'Centro_Salud') -> float:
+        """
+        Calcula la distancia geográfica en km al otro centro usando fórmula de Haversine.
+
+        Params:
+            otro_centro (Centro_Salud): Centro de destino.
+
+        Returns:
+            float: Distancia en kilómetros o None si faltan coordenadas.
+        """
         if self.latitud is None or self.longitud is None or otro_centro.latitud is None or otro_centro.longitud is None:
             return None  # No se pueden calcular distancias si faltan coordenadas
 
