@@ -5,12 +5,15 @@ from organos import Organo
 from typing import List , Optional
 from centro_salud import Centro_Salud
 
+
+
 class Donante(Pacientes):
     """
     Representa a un paciente donante de órganos.
 
     Almacena información relacionada con el fallecimiento y los órganos disponibles para ablación.
     """
+
 
     def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
                  telefono: str, tipo_sangre: str, centro_salud_asociado: 'Centro_Salud',
@@ -55,7 +58,6 @@ class Donante(Pacientes):
                 self.organos_a_donar.append(organo)
             except ValueError as e:
                 print(f"Error: El tipo de órgano '{organo_str}' no es válido para el donante {self.nombre}. Tipos válidos: {Organo.TIPOS_VALIDOS}")
-
 
     def _generar_organos_aleatorios(self) -> None:
         """

@@ -1,9 +1,9 @@
-from abc import ABC #, abstractmethod
+from abc import ABC 
 from typing import Optional
 from datetime import datetime
 from centro_salud import Centro_Salud
 
-# @abstractmethod 
+
 
 class Pacientes(ABC):
     """
@@ -14,6 +14,8 @@ class Pacientes(ABC):
     """
     def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
                  telefono: str, tipo_sangre: str, centro_salud_asociado: Optional['Centro_Salud'] = None):
+        
+        
         """
         Inicializa un nuevo Pacientes.
 
