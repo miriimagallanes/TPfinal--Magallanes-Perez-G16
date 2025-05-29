@@ -1,4 +1,6 @@
 from vehiculos.vehiculos import Vehiculos
+from typing import Optional
+
 
 class Vehiculo_terrestre(Vehiculos):
     """
@@ -10,7 +12,7 @@ class Vehiculo_terrestre(Vehiculos):
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia: float, trafico: float) -> float:
+    def calcular_tiempo(self, distancia: float, trafico: Optional[float]) -> float:
         """
         Calcula el tiempo total de viaje considerando el tráfico.
 

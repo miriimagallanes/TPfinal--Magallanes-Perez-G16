@@ -1,4 +1,6 @@
 from abc import ABC , abstractmethod
+from typing import Optional
+
 
 class Vehiculos(ABC):
     """
@@ -26,7 +28,7 @@ class Vehiculos(ABC):
         self.disponible = True
 
     @abstractmethod
-    def calcular_tiempo(self, distancia: float, trafico: float = None) -> float:
+    def calcular_tiempo(self, distancia: float, trafico: Optional[float] = None) -> float:
         """
         Calcula el tiempo estimado de viaje según el tipo de vehículo.
 
@@ -39,7 +41,7 @@ class Vehiculos(ABC):
         """
         pass 
 
-    def registrar_viaje(self, distancia: float, trafico: float, tiempo_estimado: float) -> None:
+    def registrar_viaje(self, distancia: float, trafico: Optional[float], tiempo_estimado: float) -> None:
         """
         Registra un viaje realizado por el vehículo.
 

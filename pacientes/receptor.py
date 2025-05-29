@@ -53,8 +53,6 @@ class Receptor(Pacientes):
         """
         Actualiza la prioridad y estado tras un trasplante fallido.
 
-        Effects:
-            La prioridad se establece en 5 y el estado en "Inestable".
         """
         self.prioridad = 5 # Se setea a la mayor prioridad (según enunciado)
         self.estado = "Inestable"
@@ -67,8 +65,6 @@ class Receptor(Pacientes):
         Params:
             nuevo_estado (str): Nuevo estado a establecer (no se usa directamente).
 
-        Effects:
-            Cambia el estado a "inestable" si la prioridad es mayor a 3.
         """
         if self.prioridad > 3:
             self.estado = "inestable"
@@ -81,8 +77,6 @@ class Receptor(Pacientes):
         Params:
             patologia (str): Descripción de la patología del receptor.
 
-        Effects:
-            Asigna la patología al receptor.
         """
         self.patologia = patologia
 
