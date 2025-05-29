@@ -1,4 +1,7 @@
 from abc import ABC #, abstractmethod
+from typing import Optional
+from datetime import datetime
+from centro_salud import Centro_Salud
 
 # @abstractmethod 
 
@@ -9,7 +12,8 @@ class Pacientes(ABC):
     para la identificación y asociación a un centro de salud.
   
     """
-    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado = None):
+    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
+                 telefono: str, tipo_sangre: str, centro_salud_asociado: Optional['Centro_Salud'] = None):
         """
         Inicializa un nuevo Pacientes.
 
@@ -32,8 +36,7 @@ class Pacientes(ABC):
 
     def __str__(self) -> str:
         """
-        Retorna una representación en texto del paciente, muestra los datos básicos
-        del paciente y el nombre del centro de salud asociado.
+        Retorna una representación en texto del paciente
 
         Returns:
             str: Cadena de texto con la información principal del paciente.
@@ -63,12 +66,12 @@ class Pacientes(ABC):
         
         return self.__dni
 
-    def get_partido(self):
+    def get_partido(self) -> Optional[str]:
         """
          Retorna el partido del centro de salud asociado, si existe.
 
         Returns:
-             El nombre del partido o None si no hay centro asociado.
+             Optional[str]: Nombre del partido o None.
         """
         return self.centro_salud_asociado.partido if self.centro_salud_asociado else None
 

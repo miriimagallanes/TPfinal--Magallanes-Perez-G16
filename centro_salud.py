@@ -8,6 +8,8 @@ from math import radians, cos, sin, atan2, sqrt
 from excepciones import RecursoNoDisponibleError
 from cirujanos import Cirujano 
 from organos import Organo
+from vehiculos.vehiculos import Vehiculos
+
  
 class Centro_Salud:
     """
@@ -76,7 +78,7 @@ class Centro_Salud:
                 pacientes_encontrados.append(paciente)
         return pacientes_encontrados
 
-    def seleccionar_vehiculo_para_traslado(self, centro_receptor: 'Centro_Salud'): #-> 'Vehiculos':
+    def seleccionar_vehiculo_para_traslado(self, centro_receptor: 'Centro_Salud') -> 'Vehiculos':
         """
         Selecciona el vehículo más adecuado según la distancia al centro receptor.
 

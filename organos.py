@@ -1,4 +1,7 @@
 from datetime import datetime
+from pacientes.donantes import Donante
+from pacientes.receptor import Receptor
+
 
 class Organo:
     """
@@ -47,7 +50,8 @@ class Organo:
         return f"{self.tipo_org} (Ablación: {ablacion_info})"
 
 
-    def es_compatible(self, receptor, donante) -> bool:
+    def es_compatible(self, receptor: 'Receptor', donante: 'Donante') -> bool:
+
         """
         Determina si el órgano es compatible entre un donante y un receptor.
 

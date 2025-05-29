@@ -1,15 +1,19 @@
 import random
 from pacientes.pacientes import Pacientes
+from datetime import datetime
+from typing import Optional
+from centro_salud import Centro_Salud
 
 
 class Receptor(Pacientes):
     """
     Representa a un paciente receptor que espera un órgano compatible.
 
-    Contiene información sobre el órgano necesario, estado de salud, prioridad y patología.
     """
-    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
-                 organo_necesario, fecha_ingreso_lista, prioridad=None, estado="estable"):
+    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
+                 telefono: str, tipo_sangre: str, centro_salud_asociado: 'Centro_Salud',
+                 organo_necesario: str, fecha_ingreso_lista: datetime,
+                 prioridad: Optional[int] = None, estado: str = "estable"):
         """
         Inicializa un receptor con órgano requerido y prioridad (puede ser aleatoria).
 

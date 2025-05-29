@@ -2,6 +2,8 @@ from pacientes.pacientes import Pacientes
 import random 
 from datetime import datetime
 from organos import Organo
+from typing import List , Optional
+from centro_salud import Centro_Salud
 
 class Donante(Pacientes):
     """
@@ -10,9 +12,11 @@ class Donante(Pacientes):
     Almacena información relacionada con el fallecimiento y los órganos disponibles para ablación.
     """
 
-    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
-                 fecha_fallecimiento, hora_fallecimiento, fecha_inicio_ablacion, hora_inicio_ablacion,
-                 organos_a_donar_str=None):
+    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
+                 telefono: str, tipo_sangre: str, centro_salud_asociado: 'Centro_Salud',
+                 fecha_fallecimiento: datetime, hora_fallecimiento: str,
+                 fecha_inicio_ablacion: datetime, hora_inicio_ablacion: str,
+                 organos_a_donar_str: Optional[List[str]] = None):
         """
         Inicializa un nuevo donante con información adicional sobre su fallecimiento y órganos a donar.
 
@@ -74,7 +78,7 @@ class Donante(Pacientes):
         """
         print(f"Órganos a donar por {self.nombre}: {', '.join(self.organos_a_donar)}")
 
-    def remover_organo_donado(self, organo) -> None:
+    def remover_organo_donado(self, organo: Organo) -> None:
         """
         Elimina un órgano de la lista de órganos disponibles si existe.
 
