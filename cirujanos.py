@@ -1,5 +1,9 @@
+from __future__ import annotations
 import random
+from typing import Optional, List, TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from organos import Organo # Solo para tipado, no para ejecución
 
 
 class Cirujano:
@@ -8,7 +12,8 @@ class Cirujano:
 
     Tiene especialidades, historial de operaciones y estado de disponibilidad.
     """
-    def __init__(self, nombre, especialidades=None, matricula=None):
+    def __init__(self, nombre: str, especialidades: Optional[list[str]] = None, matricula: Optional[str] = None):
+
         """
         Inicializa un cirujano.
 
@@ -23,7 +28,8 @@ class Cirujano:
         self.matricula = matricula
         self.disponible = True
 
-    def tiene_especialidad(self, especialidad):
+    def tiene_especialidad(self, especialidad: str) -> bool:
+
         """
         Verifica si el cirujano posee una especialidad dada.
 
@@ -35,7 +41,7 @@ class Cirujano:
         """
         return especialidad in self.especialidades
 
-    def esta_disponible(self):
+    def esta_disponible(self) -> bool:
         """
         Verifica si el cirujano está disponible para operar.
 
@@ -44,7 +50,7 @@ class Cirujano:
         """
         return self.disponible
 
-    def marcar_como_no_disponible(self):
+    def marcar_como_no_disponible(self) -> None:
         """
         Marca al cirujano como no disponible.
 
@@ -53,7 +59,8 @@ class Cirujano:
         """
         self.disponible = False
 
-    def realizar_operacion(self, organo):
+    def realizar_operacion(self, organo_tipo: str) -> bool:
+
         """
         Simula la realización de una operación sobre un órgano.
 
@@ -66,13 +73,14 @@ class Cirujano:
         Effects:
             Registra la operación e impacta la disponibilidad.
         """
-        self.operaciones_realizadas.append(organo)
+        self.operaciones_realizadas.append(organo_tipo)
         self.marcar_como_no_disponible()
-        exito = self._determinar_exito(organo)
-        print(f"El cirujano {self.nombre} ha realizado una operación de {organo}. Éxito: {exito}.")
+        exito = self._determinar_exito(organo_tipo)
+        print(f"El cirujano {self.nombre} ha realizado una operación de {organo_tipo}. Éxito: {exito}.")
         return exito
 
-    def _determinar_exito(self, organo):
+    def _determinar_exito(self, organo_tipo: str) -> bool:
+
         """
         Lógica para determinar el éxito de la operación.
 
@@ -94,7 +102,7 @@ class Cirujano:
             "hígado": "gastroenterólogo",
             "pancreas": "gastroenterólogo"
         }
-        especialidad_requerida = especialidades_por_organo.get(organo)
+        especialidad_requerida = especialidades_por_organo.get(organo_tipo)
 
         if not self.especialidades: # Cirujano general
             return random.randint(1, 10) > 5
@@ -104,7 +112,8 @@ class Cirujano:
             else: # No tiene la especialidad requerida, se considera como general
                 return random.randint(1, 10) > 5
 
-    def resetear_disponibilidad(self):
+    def resetear_disponibilidad(self) -> None:
+
         """
         Marca al cirujano como disponible nuevamente.
 

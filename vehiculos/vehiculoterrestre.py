@@ -1,4 +1,5 @@
-from vehiculos.vehiculos import Vehiculos
+from __future__ import annotations
+from .vehiculos import Vehiculos
 
 
 
@@ -8,13 +9,15 @@ class VehiculoTerrestre(Vehiculos):
     """
 
 
-    def __init__(self, velocidad):
+    def __init__(self, velocidad: float):
+
         """
         Inicializa un vehículo terrestre con velocidad dada.
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia, trafico):
+    def calcular_tiempo(self, distancia: float, trafico: float) -> float:
+
         """
         Calcula el tiempo total de viaje considerando el tráfico.
 

@@ -1,4 +1,5 @@
-from vehiculos.vehiculos import Vehiculos
+from __future__ import annotations
+from .vehiculos import Vehiculos
 
 
 
@@ -8,13 +9,15 @@ class Helicoptero(Vehiculos):
     """
 
 
-    def __init__(self, velocidad):
+    def __init__(self, velocidad: float):
+
         """
         Inicializa un helicóptero con velocidad dada.
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia, trafico):
+    def calcular_tiempo(self, distancia: float, trafico: float | None = None) -> float:
+
         """
         Calcula el tiempo de viaje. El tráfico no afecta al helicóptero.
 

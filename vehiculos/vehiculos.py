@@ -1,4 +1,6 @@
-from abc import ABC 
+from __future__ import annotations
+from abc import ABC
+from typing import Optional
 
 
 
@@ -10,7 +12,8 @@ class Vehiculos(ABC):
     """
 
     
-    def __init__(self, velocidad):
+    def __init__(self, velocidad: float):
+
         """
         Inicializa un vehículo con una velocidad dada.
 
@@ -29,7 +32,8 @@ class Vehiculos(ABC):
         self.viajes_realizados = []
         self.disponible = True
 
-    def calcular_tiempo(self, distancia, trafico=None):
+    def calcular_tiempo(self, distancia: float, trafico: Optional[float] = None) -> float:
+
         """
         Calcula el tiempo estimado de viaje según el tipo de vehículo.
 
@@ -42,7 +46,8 @@ class Vehiculos(ABC):
         """
         pass 
 
-    def registrar_viaje(self, distancia, trafico, tiempo_estimado):
+    def registrar_viaje(self, distancia: float, trafico: Optional[float], tiempo_estimado: float) -> None:
+
         """
         Registra un viaje realizado por el vehículo.
 
@@ -60,7 +65,7 @@ class Vehiculos(ABC):
             "tiempo_estimado": tiempo_estimado
         })
 
-    def mostrar_viajes(self):
+    def mostrar_viajes(self) -> None:
         """
         Imprime en consola todos los viajes realizados por el vehículo.
 
@@ -70,7 +75,8 @@ class Vehiculos(ABC):
         for viaje in self.viajes_realizados:
             print(viaje)
 
-    def marcar_no_disponible(self):
+    def marcar_no_disponible(self) -> None:
+
         """
         Marca al vehículo como no disponible.
 
@@ -79,7 +85,8 @@ class Vehiculos(ABC):
         """
         self.disponible = False
 
-    def marcar_disponible(self):
+    def marcar_disponible(self) -> None:
+
         """
         Marca al vehículo como disponible.
 
