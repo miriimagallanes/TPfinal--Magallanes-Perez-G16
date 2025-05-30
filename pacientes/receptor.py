@@ -26,7 +26,7 @@ class Receptor(Pacientes):
         self.fecha_ingreso_lista = fecha_ingreso_lista
         self.estado = estado
         self.prioridad = prioridad if prioridad is not None else self._generar_prioridad_aleatoria()
-        self.patologia = None # Podemos agregar patología si es necesario
+        self.patologia = None 
 
     def mostrar_estado(self):
         """
@@ -52,7 +52,7 @@ class Receptor(Pacientes):
         Actualiza la prioridad y estado tras un trasplante fallido.
 
         """
-        self.prioridad = 5 # Se setea a la mayor prioridad (según enunciado)
+        self.prioridad = 5 
         self.estado = "Inestable"
         print(f"Trasplante fallido para el receptor {self.nombre}. Prioridad ahora es {self.prioridad}, estado Inestable.")
 

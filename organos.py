@@ -1,11 +1,13 @@
 from datetime import datetime
 
 
+
 class Organo:
     """
     Representa un órgano humano potencialmente disponible para trasplante.
     """
     TIPOS_VALIDOS = ["corazon", "higado", "riñones", "pulmones", "pancreas", "piel", "huesos", "intestino", "corneas"]
+
 
     def __init__(self, tipo_org):
         """
@@ -20,7 +22,7 @@ class Organo:
         if tipo_org not in self.TIPOS_VALIDOS:
             raise ValueError(f"Tipo de órgano inválido: {tipo_org}. Los tipos válidos son: {self.TIPOS_VALIDOS}")
         self.tipo_org = tipo_org
-        self.fecha_hora_ablacion = None # Se asigna cuando se realice la ablacion
+        self.fecha_hora_ablacion = None 
 
     def asignar_fecha_hora_ablacion(self, fecha_hora:datetime):
         """
@@ -42,11 +44,10 @@ class Organo:
             str: Representación legible en texto.
         """
         if self.fecha_hora_ablacion:
-            ablacion_info = self.fecha_hora_ablacion.strftime('%Y-%m-%d %H:%M') # Cadena de texto de deletime
+            ablacion_info = self.fecha_hora_ablacion.strftime('%Y-%m-%d %H:%M') 
         else:
             ablacion_info = "No ablacionado"
         return f"{self.tipo_org} (Ablación: {ablacion_info})"
-
 
     def es_compatible(self, receptor , donante ):
         """
@@ -80,7 +81,7 @@ class Organo:
         else:
             return False
 
-    def esta_disponible(self): # Para saber si el órgano ya ha sido ablacionado.
+    def esta_disponible(self): 
         """
         Indica si el órgano aún no fue ablacionado.
 
@@ -109,7 +110,6 @@ class Organo:
         Returns:
             bool: True si fue ablacionado, False si no.
         """
-    # Un órgano listo para trasplante si ha sido ablacionado.
         return self.fecha_hora_ablacion is not None
 
 
