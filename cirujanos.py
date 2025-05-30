@@ -53,7 +53,7 @@ class Cirujano:
         """
         self.disponible = False
 
-    def realizar_operacion(self, organo: str):
+    def realizar_operacion(self, organo):
         """
         Simula la realización de una operación sobre un órgano.
 

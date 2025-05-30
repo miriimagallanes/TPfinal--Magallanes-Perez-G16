@@ -2,11 +2,11 @@ from vehiculos.vehiculos import Vehiculos
 
 
 
-class Vehiculo_terrestre(Vehiculos):
+class VehiculoTerrestre(Vehiculos):
     """
     Representa un vehículo terrestre como una ambulancia.
     """
-    
+
 
     def __init__(self, velocidad):
         """
@@ -27,14 +27,5 @@ class Vehiculo_terrestre(Vehiculos):
         """
         tiempo = distancia / self.velocidad + trafico 
         return tiempo
-    
 
-
-
-
-
-
-
-
- 
 

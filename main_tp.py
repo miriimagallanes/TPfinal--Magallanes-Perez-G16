@@ -1,9 +1,9 @@
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
-from vehiculos.vehiculo_terrestre import Vehiculo_terrestre
+from vehiculos.vehiculoterrestre import VehiculoTerrestre
 from vehiculos.avion import Avion
 from vehiculos.helicoptero import Helicoptero
-from centro_salud import Centro_Salud
+from centrosalud import CentroSalud
 from incucai import INCUCAI
 from cirujanos import Cirujano
 from datetime import datetime, timedelta
@@ -76,15 +76,15 @@ def registrar_receptor(sistema, centro):
         print(f"Error al registrar receptor: {e}")
 
 def main():
-    centro_donante = Centro_Salud("Hospital CABA", "Av. Cordoba 3456", "CABA", "CABA", "111", -34.6037, -58.3816)
-    centro_receptor = Centro_Salud("Hospital General Belgrano", "Av. de los Incas 1234", "San Martín", "Buenos Aires", "222", -34.5705, -58.5296)
-    centro_donante_1 = Centro_Salud("Hospital San Isidro", "Av. Centenario 123", "San Isidro", "Buenos Aires", "011-1111", latitud=-34.472, longitud=-58.523)
-    centro_donante_2 = Centro_Salud("Hospital Rosario", "Bv. Oroño 456", "Rosario", "Santa Fe", "0341-2222", latitud=-32.9442, longitud=-60.6505)
-    centro_receptor_1 = Centro_Salud("Hospital Mendoza", "Av. San Martín 789", "Capital", "Mendoza", "0261-3333", latitud=-32.8908, longitud=-68.8272)
-    centro_receptor_2 = Centro_Salud("Hospital La Plata", "Calle 12 321", "La Plata", "Buenos Aires", "0221-4444", latitud=-34.9214, longitud=-57.9544)
+    centro_donante = CentroSalud("Hospital CABA", "Av. Cordoba 3456", "CABA", "CABA", "111", -34.6037, -58.3816)
+    centro_receptor = CentroSalud("Hospital General Belgrano", "Av. de los Incas 1234", "San Martín", "Buenos Aires", "222", -34.5705, -58.5296)
+    centro_donante_1 = CentroSalud("Hospital San Isidro", "Av. Centenario 123", "San Isidro", "Buenos Aires", "011-1111", latitud=-34.472, longitud=-58.523)
+    centro_donante_2 = CentroSalud("Hospital Rosario", "Bv. Oroño 456", "Rosario", "Santa Fe", "0341-2222", latitud=-32.9442, longitud=-60.6505)
+    centro_receptor_1 = CentroSalud("Hospital Mendoza", "Av. San Martín 789", "Capital", "Mendoza", "0261-3333", latitud=-32.8908, longitud=-68.8272)
+    centro_receptor_2 = CentroSalud("Hospital La Plata", "Calle 12 321", "La Plata", "Buenos Aires", "0221-4444", latitud=-34.9214, longitud=-57.9544)
 
 
-    centro_receptor.agregar_vehiculo(Vehiculo_terrestre(60))
+    centro_receptor.agregar_vehiculo(VehiculoTerrestre(60))
     centro_receptor.agregar_vehiculo(Helicoptero(200))
     centro_receptor.agregar_vehiculo(Avion(800))
 

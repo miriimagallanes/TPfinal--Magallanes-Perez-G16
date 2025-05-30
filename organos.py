@@ -24,7 +24,7 @@ class Organo:
         self.tipo_org = tipo_org
         self.fecha_hora_ablacion = None 
 
-    def asignar_fecha_hora_ablacion(self, fecha_hora:datetime):
+    def asignar_fecha_hora_ablacion(self, fecha_hora):
         """
         Asigna la fecha y hora en que fue realizada la ablación.
 
@@ -64,20 +64,24 @@ class Organo:
         if self.tipo_org != receptor.organo_necesario:
             return False
 
-        # Lógica de compatibilidad ABO
         donante_tipo = donante.tipo_sangre
         receptor_tipo = receptor.tipo_sangre
 
         if donante_tipo == receptor_tipo:
             return True
+        
         elif donante_tipo == 'O':
             return True
+        
         elif receptor_tipo == 'AB':
             return True
+        
         elif donante_tipo == 'A' and receptor_tipo == 'AB':
             return True
+        
         elif donante_tipo == 'B' and receptor_tipo == 'AB':
             return True
+        
         else:
             return False
 
@@ -97,8 +101,10 @@ class Organo:
         Returns:
             str: Cadena tipo Organo(tipo:..., estado:...)
         """
+
         if self.fecha_hora_ablacion:
             ablacion_estado = "Ablacionado"
+
         else:
             ablacion_estado = "Pendiente"
         return f"Organo(tipo:{self.tipo_org}, estado: {ablacion_estado}"

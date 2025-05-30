@@ -1,6 +1,6 @@
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
-from centro_salud import *
+from centrosalud import CentroSalud
 from datetime import datetime, timedelta
 from excepciones import PacienteNoEncontradoError, CentroSaludNoEncontradoError, RecursosInsuficientesError, RecursoNoDisponibleError, PacienteYaRegistradoError
 
@@ -367,7 +367,7 @@ class INCUCAI:
             vehiculo_asignado.marcar_disponible()
 
             print(f"El vehículo ({type(vehiculo_asignado).__name__}) se marca como disponible debido a la inviabilidad del órgano.")
-            
+
             if cirujano_asignado and cirujano_asignado.esta_disponible() == False:
                  cirujano_asignado.resetear_disponibilidad()
 
