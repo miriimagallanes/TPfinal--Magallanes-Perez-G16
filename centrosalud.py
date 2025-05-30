@@ -2,10 +2,7 @@ from __future__ import annotations
 from math import radians, cos, sin, atan2, sqrt
 from datetime import datetime, timedelta
 from typing import Optional, List, TYPE_CHECKING
-
 from excepciones import RecursoNoDisponibleError
-
-# Solo para verificación de tipo, no para ejecución
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
 from organos import Organo
@@ -26,6 +23,7 @@ class CentroSalud:
 
 
     def __init__(self, nombre: str, direccion: str, partido: str, provincia: str, telefono: str, latitud: Optional[float] = None, longitud: Optional[float] = None):
+        
         """
         Inicializa un centro de salud.
 
@@ -49,6 +47,7 @@ class CentroSalud:
         self.longitud = longitud
 
     def agregar_cirujano(self, cirujano: 'Cirujano') -> None:
+        
         """
         Agrega un cirujano al centro.
 
@@ -58,6 +57,7 @@ class CentroSalud:
         self.cirujanos.append(cirujano)
 
     def agregar_vehiculo(self, vehiculo: 'Vehiculos') -> None:
+        
         """
         Agrega un vehículo al centro.
 
@@ -67,6 +67,7 @@ class CentroSalud:
         self.vehiculos.append(vehiculo)
 
     def buscar_pacientes(self, tipo: str, lista_pacientes: list) -> list:
+        
         """
         Filtra pacientes asociados al centro de acuerdo al tipo.
 
@@ -86,6 +87,7 @@ class CentroSalud:
         return pacientes_encontrados
 
     def seleccionar_vehiculo_para_traslado(self, centro_receptor: CentroSalud) -> Vehiculos:
+        
         """
         Selecciona el vehículo más adecuado según la distancia al centro receptor.
 
@@ -127,6 +129,7 @@ class CentroSalud:
         return vehiculo_seleccionado
 
     def seleccionar_cirujano_para_operacion(self, organo: str) -> Cirujano:
+        
         """
         Selecciona un cirujano disponible que pueda operar el órgano.
 
@@ -163,6 +166,7 @@ class CentroSalud:
         return cirujano_seleccionado
     
     def realizar_ablacion(self, donante: 'Donante', organo_a_ablacion: 'Organo') -> Optional['Organo']:
+        
         """
         Asigna fecha de ablación a un órgano y lo remueve del donante.
 
@@ -183,7 +187,6 @@ class CentroSalud:
             print(f"Ablación de {organo_a_ablacion.tipo_org} realizada.")
             return organo_a_ablacion
     
-
         elif organo_a_ablacion not in donante.organos_a_donar:
             print(f"Centro {self.nombre}: El órgano {organo_a_ablacion.tipo_org} no está en la lista de donación de {donante.nombre}.")
             return None
@@ -192,6 +195,7 @@ class CentroSalud:
             return None
 
     def realizar_trasplante(self, receptor: 'Receptor', organo: 'Organo', cirujano: 'Cirujano') -> bool:
+        
         """
         Realiza un trasplante en caso de que el órgano siga siendo viable.
 
@@ -228,6 +232,7 @@ class CentroSalud:
             return False
         
     def _obtener_especialidad_para_organo(self, organo: str) -> Optional[str]:
+        
         """
         Devuelve la especialidad médica requerida para operar un órgano.
 
@@ -251,6 +256,7 @@ class CentroSalud:
         return especialidades_por_organo.get(organo)
 
     def obtener_distancia(self, otro_centro: 'CentroSalud') -> Optional[float]:
+        
         """
         Calcula la distancia geográfica en km al otro centro usando fórmula de Haversine.
 

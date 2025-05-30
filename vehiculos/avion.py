@@ -10,6 +10,7 @@ class Avion(Vehiculos):
 
     
     def __init__(self, velocidad: float):
+        
         """
         Inicializa un avión con velocidad dada.
         """

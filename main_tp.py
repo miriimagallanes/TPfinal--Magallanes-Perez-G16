@@ -58,7 +58,6 @@ def registrar_donante(sistema, centro):
     except Exception as e:
         print(f"Error al registrar donante: {e}")
 
-
 def registrar_receptor(sistema, centro):
     try:
         nombre = input("Nombre: ")
@@ -83,7 +82,6 @@ def main():
     centro_receptor_1 = CentroSalud("Hospital Mendoza", "Av. San Martín 789", "Capital", "Mendoza", "0261-3333", latitud=-32.8908, longitud=-68.8272)
     centro_receptor_2 = CentroSalud("Hospital La Plata", "Calle 12 321", "La Plata", "Buenos Aires", "0221-4444", latitud=-34.9214, longitud=-57.9544)
 
-
     centro_receptor.agregar_vehiculo(VehiculoTerrestre(60))
     centro_receptor.agregar_vehiculo(Helicoptero(200))
     centro_receptor.agregar_vehiculo(Avion(800))
@@ -95,7 +93,6 @@ def main():
     centro_donante_2.agregar_cirujano(Cirujano("Dr. Ernesto Dermis",["plástico"],"MP1002"))    
     centro_receptor_1.agregar_cirujano(Cirujano("Dra. Carla Huesos",["traumatólogo"],"MP1003"))        
     centro_receptor_2.agregar_cirujano(Cirujano("Dr. Pablo General", [],"MP0000"))         
-
 
     sistema = INCUCAI()
 
@@ -191,10 +188,6 @@ def main():
         elif opcion == "4":
             try:
                 dni = int(input("DNI del donante: "))
-      
-       
-        
-
                 donante = next(d for d in sistema.donantes if d.get_dni() == dni)
                 coincidencias = sistema.buscar_match_donante(donante)
                 if coincidencias:
@@ -205,7 +198,6 @@ def main():
             except StopIteration:
                 print("Donante no encontrado.")
                 
-             
         elif opcion == "5":
             try:
                 dni = int(input("DNI del donante: "))
@@ -237,30 +229,25 @@ def main():
         elif opcion == "9":
             registrar_receptor(sistema, centro_receptor)
 
-        # En el archivo del menú interactivo (por ejemplo main_tp.py)
-# Agregar esta opción dentro del bucle principal del menú:
-
         elif opcion == "10":
             try:
                 dni = int(input("DNI del donante para realizar ablación: "))
                 donante = next(d for d in sistema.donantes if d.get_dni() == dni)
-
-                # Mostrar órganos disponibles (no ablacionados)
                 disponibles = [o for o in donante.organos_a_donar if o.fecha_hora_ablacion is None]
+
                 if not disponibles:
                     print("Este donante no tiene órganos disponibles para ablación.")
                 else:
                     print("\nÓrganos disponibles para ablación:")
                     for idx, o in enumerate(disponibles):
                         print(f"{idx+1}. {o.tipo_org}")
-
                     opcion_organo = int(input("Seleccione el número del órgano a ablacionar: "))
                     organo_elegido = disponibles[opcion_organo - 1]
-
                     centro = donante.centro_salud_asociado
+
                     if centro:
                         centro.realizar_ablacion(donante, organo_elegido)
-                        # Si ya no quedan órganos ablacionables ni ablacionados, se elimina el donante
+
                         if not donante.organos_a_donar:
                             sistema.donantes.remove(donante)
                             print(f"Donante {donante.nombre} eliminado de la lista: sin órganos restantes.")
@@ -272,12 +259,9 @@ def main():
             except (ValueError, IndexError):
                 print("Entrada inválida. Selección cancelada.")
 
-
-
         elif opcion == "0":
             print("Saliendo del sistema...")
             break
-        
         
         else:
             print("Opción inválida. Intente de nuevo.")

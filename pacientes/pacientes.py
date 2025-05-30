@@ -1,10 +1,7 @@
-# pacientes/pacientes.py
 from __future__ import annotations
 from abc import ABC
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
-
-# Solo para verificación de tipo, no para ejecución
 if TYPE_CHECKING:
     from centrosalud import CentroSalud
 

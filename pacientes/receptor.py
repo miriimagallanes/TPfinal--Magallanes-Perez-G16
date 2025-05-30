@@ -1,14 +1,11 @@
-# pacientes/receptor.py
 from __future__ import annotations
 import random
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 from pacientes.pacientes import Pacientes
-
-# Solo para verificación de tipo, no para ejecución
 if TYPE_CHECKING:
     from centrosalud import CentroSalud
-    from organos import Organo # Si en algún futuro Receptor interactúa directamente con Organo fuera de compatibilidad
+    from organos import Organo 
 
 
 

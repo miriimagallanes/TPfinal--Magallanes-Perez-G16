@@ -1,9 +1,9 @@
 from __future__ import annotations
 import random
 from typing import Optional, List, TYPE_CHECKING
-
 if TYPE_CHECKING:
-    from organos import Organo # Solo para tipado, no para ejecución
+    from organos import Organo 
+
 
 
 class Cirujano:
@@ -42,6 +42,7 @@ class Cirujano:
         return especialidad in self.especialidades
 
     def esta_disponible(self) -> bool:
+
         """
         Verifica si el cirujano está disponible para operar.
 
@@ -51,6 +52,7 @@ class Cirujano:
         return self.disponible
 
     def marcar_como_no_disponible(self) -> None:
+
         """
         Marca al cirujano como no disponible.
 
@@ -104,12 +106,12 @@ class Cirujano:
         }
         especialidad_requerida = especialidades_por_organo.get(organo_tipo)
 
-        if not self.especialidades: # Cirujano general
+        if not self.especialidades: 
             return random.randint(1, 10) > 5
-        else: # Cirujano con especialidad
+        else: 
             if especialidad_requerida in self.especialidades:
                 return random.randint(1, 10) >= 3
-            else: # No tiene la especialidad requerida, se considera como general
+            else: 
                 return random.randint(1, 10) > 5
 
     def resetear_disponibilidad(self) -> None:
