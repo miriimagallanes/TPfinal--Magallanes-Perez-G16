@@ -2,12 +2,15 @@ from abc import ABC , abstractmethod
 from typing import Optional
 
 
+
 class Vehiculos(ABC):
     """
     Clase abstracta que representa un vehículo usado para transportar órganos.
 
     Contiene información sobre velocidad, disponibilidad y viajes realizados.
     """
+
+    
     def __init__(self, velocidad: float):
         """
         Inicializa un vehículo con una velocidad dada.

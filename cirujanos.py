@@ -1,5 +1,7 @@
 import random
 
+
+
 class Cirujano:
     """
     Representa un cirujano que puede realizar operaciones médicas.
