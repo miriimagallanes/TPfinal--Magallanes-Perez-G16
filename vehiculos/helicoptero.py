@@ -6,6 +6,8 @@ class Helicoptero(Vehiculos):
     """
     Representa un helicóptero utilizado para el transporte de órganos.
     """
+
+
     def __init__(self, velocidad):
         """
         Inicializa un helicóptero con velocidad dada.
@@ -23,7 +25,7 @@ class Helicoptero(Vehiculos):
         Returns:
             float: Tiempo estimado de viaje en horas.
         """
-        tiempo = distancia / self.velocidad # No se ve afectado por el trafico
+        tiempo = distancia / self.velocidad
         return tiempo
 
 

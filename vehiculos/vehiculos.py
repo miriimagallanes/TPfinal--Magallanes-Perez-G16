@@ -1,4 +1,4 @@
-from abc import ABC , abstractmethod
+from abc import ABC 
 
 
 
@@ -29,7 +29,6 @@ class Vehiculos(ABC):
         self.viajes_realizados = []
         self.disponible = True
 
-    @abstractmethod
     def calcular_tiempo(self, distancia, trafico=None):
         """
         Calcula el tiempo estimado de viaje según el tipo de vehículo.

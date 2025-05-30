@@ -15,6 +15,8 @@ class Centro_Salud:
 
     Permite registrar recursos, realizar ablaciones, trasplantes y seleccionar personal y vehículos.
     """
+
+
     def __init__(self, nombre, direccion, partido, provincia, telefono, latitud=None, longitud=None):
         """
         Inicializa un centro de salud.
@@ -95,16 +97,15 @@ class Centro_Salud:
         if distancia is None:
            raise RecursoNoDisponibleError(f"No se pueden calcular distancias entre el centro {self.nombre} y el centro {centro_receptor.nombre} para seleccionar un vehículo. Faltan coordenadas.")
         else:
-            # Lógica de selección basada en la distancia
-            if distancia <= 100: # Distancias cortas, usar terrestre
+            if distancia <= 100:
                 vehiculos_terrestres_disponibles = [v for v in self.vehiculos if isinstance(v, Vehiculo_terrestre) and v.disponible]
                 if vehiculos_terrestres_disponibles:
                     vehiculo_seleccionado = max(vehiculos_terrestres_disponibles, key=lambda v: v.velocidad)
-            elif distancia <= 500: #  Distancias medias, usar helicóptero
+            elif distancia <= 500: 
                 helicopteros_disponibles = [v for v in self.vehiculos if isinstance(v, Helicoptero) and v.disponible]
                 if helicopteros_disponibles:
                     vehiculo_seleccionado = helicopteros_disponibles[0]
-            else: # Distancias largas, usar avión
+            else: 
                 aviones_disponibles = [v for v in self.vehiculos if isinstance(v, Avion) and v.disponible]
                 if aviones_disponibles:
                     vehiculo_seleccionado = aviones_disponibles[0]
@@ -141,7 +142,6 @@ class Centro_Salud:
                     break
 
         if not cirujano_seleccionado:
-            #Si no se encontro un cirujano especialista, buscamos uno general
             for cirujano in self.cirujanos:
                 if not cirujano.especialidades and cirujano.esta_disponible():
                     cirujano_seleccionado = cirujano
@@ -171,7 +171,7 @@ class Centro_Salud:
         if organo_a_ablacion in donante.organos_a_donar and organo_a_ablacion.fecha_hora_ablacion is None:
             organo_a_ablacion.asignar_fecha_hora_ablacion(datetime.now())
             donante.organos_a_donar.remove(organo_a_ablacion)
-            donante.organos_ablacionados.append(organo_a_ablacion)  # Agregar aquí
+            donante.organos_ablacionados.append(organo_a_ablacion) 
             print(f"Ablación de {organo_a_ablacion.tipo_org} realizada.")
             return organo_a_ablacion
     
@@ -203,7 +203,7 @@ class Centro_Salud:
             if tiempo_transcurrido <= timedelta(hours=20):
                 print(f"Centro {self.nombre}: Iniciando trasplante de {organo.tipo_org} al receptor {receptor.nombre} con el cirujano {cirujano.nombre}.")
                 exito = cirujano.realizar_operacion(organo.tipo_org)
-                cirujano.resetear_disponibilidad() # Liberar al cirujano después de la operación
+                cirujano.resetear_disponibilidad() 
                 if exito:
                     print(f"Centro {self.nombre}: El trasplante de {organo.tipo_org} al receptor {receptor.nombre} ha sido exitoso.")
                     return True
@@ -253,9 +253,9 @@ class Centro_Salud:
             float: Distancia en kilómetros o None si faltan coordenadas.
         """
         if self.latitud is None or self.longitud is None or otro_centro.latitud is None or otro_centro.longitud is None:
-            return None  # No se pueden calcular distancias si faltan coordenadas
+            return None  
 
-        R = 6371  # Radio de la Tierra en km
+        R = 6371  
 
         lat1 = radians(self.latitud)
         lon1 = radians(self.longitud)
@@ -269,4 +269,4 @@ class Centro_Salud:
         c = 2 * atan2(sqrt(a), sqrt(1 - a))
         distancia = R * c
 
-        return distancia  # en kilómetros
+        return distancia  

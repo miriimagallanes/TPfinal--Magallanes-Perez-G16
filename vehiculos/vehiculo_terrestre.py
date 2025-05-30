@@ -6,6 +6,7 @@ class Vehiculo_terrestre(Vehiculos):
     """
     Representa un vehículo terrestre como una ambulancia.
     """
+    
 
     def __init__(self, velocidad):
         """
@@ -24,7 +25,7 @@ class Vehiculo_terrestre(Vehiculos):
         Returns:
             float: Tiempo total estimado en horas.
         """
-        tiempo = distancia / self.velocidad + trafico # Tiempo de viaje # t=100km/(50km/h) + 1h = 2hs +1h = 3hs
+        tiempo = distancia / self.velocidad + trafico 
         return tiempo
     
 

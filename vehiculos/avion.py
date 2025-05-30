@@ -6,6 +6,7 @@ class Avion(Vehiculos):
     """
     Representa un avión utilizado en el sistema de traslado de órganos.
     """
+
     
     def __init__(self, velocidad):
         """
