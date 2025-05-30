@@ -1,5 +1,6 @@
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
+from centro_salud import *
 from datetime import datetime, timedelta
 from excepciones import PacienteNoEncontradoError, CentroSaludNoEncontradoError, RecursosInsuficientesError, RecursoNoDisponibleError, PacienteYaRegistradoError
 
@@ -18,7 +19,7 @@ class INCUCAI:
         self.centros_salud = []
         self.trasplantes_realizados = []
     
-    def registrar_paciente(self, paciente) -> None:
+    def registrar_paciente(self, paciente):
         """
         Registra un paciente en el sistema (donante o receptor).
 
@@ -50,7 +51,7 @@ class INCUCAI:
         else:
             print("Tipo de paciente no reconocido y no puede ser registrado.")
 
-    def registrar_centro_salud(self, centro) -> None:
+    def registrar_centro_salud(self, centro):
         """
         Registra un nuevo centro de salud.
 
@@ -66,7 +67,7 @@ class INCUCAI:
         else:
             print(f"El centro de salud {centro.nombre} ya está registrado.")
 
-    def buscar_match_donante(self, donante) -> list:
+    def buscar_match_donante(self, donante):
         """
         Busca receptores compatibles para cada órgano del donante.
 
@@ -84,7 +85,7 @@ class INCUCAI:
                     coincidencias.append((organo_donado, receptor))
         return coincidencias
 
-    def buscar_match_receptor(self, receptor) -> list:
+    def buscar_match_receptor(self, receptor):
         """
         Busca donantes compatibles con el receptor dado.
 
@@ -106,7 +107,7 @@ class INCUCAI:
                                 
         return coincidencias
 
-    def iniciar_protocolo(self, donante, receptor, organo) -> None:
+    def iniciar_protocolo(self, donante, receptor, organo):
         """
         Ejecuta el protocolo básico de trasplante.
 
@@ -150,7 +151,7 @@ class INCUCAI:
             self.receptores.remove(receptor)
             print(f"Receptor {receptor.nombre} removido de la lista después de un trasplante exitoso.")
    
-    def actualizar_listas(self) -> None:
+    def actualizar_listas(self):
         """
         Recorre los receptores y aumenta su prioridad si llevan más de 30 días en la lista.
 
@@ -166,7 +167,7 @@ class INCUCAI:
                 print(f"Prioridad del receptor {receptor.nombre} (DNI: {receptor.get_dni()}) aumentada a {receptor.prioridad} después de {tiempo_en_lista.days} días en espera.")
         print("Listas de espera actualizadas.")
 
-    def listar_pacientes(self, tipo: str) -> None:
+    def listar_pacientes(self, tipo):
         """
         Lista todos los pacientes registrados según el tipo dado.
 
@@ -186,7 +187,7 @@ class INCUCAI:
         else:
             print("Tipo de paciente no válido.")
 
-    def buscar_por_centro(self, nombre_centro: str) -> None:
+    def buscar_por_centro(self, nombre_centro):
         """
         Muestra los pacientes asociados a un centro de salud por nombre.
 
@@ -209,7 +210,7 @@ class INCUCAI:
                 return
         raise CentroSaludNoEncontradoError(f"No se encontro ningun centro de salud con el nombre {nombre_centro}.")
 
-    def buscar_prioridad_receptor(self, dni: str) -> None:
+    def buscar_prioridad_receptor(self, dni):
         """
         Busca la prioridad del receptor a partir de su DNI.
 
@@ -232,7 +233,7 @@ class INCUCAI:
 
     
 
-    def asignar_recursos(self, receptor, organo, centro_donante) -> tuple:
+    def asignar_recursos(self, receptor, organo, centro_donante):
         """
         Asigna un vehículo y un cirujano al receptor desde su centro de salud asociado.
 
@@ -271,7 +272,7 @@ class INCUCAI:
 
         return vehiculo_asignado, cirujano_asignado
 
-    def realizar_proceso_trasplante(self, donante, receptor, organo_a_donar) -> None:
+    def realizar_proceso_trasplante(self, donante, receptor, organo_a_donar):
         """
         Ejecuta el proceso completo de ablación y trasplante con control de tiempo.
 
@@ -375,7 +376,7 @@ class INCUCAI:
                  cirujano_asignado.resetear_disponibilidad()
                  print(f"El cirujano ({cirujano_asignado.nombre}) se marca como disponible nuevamente.")
 
-    def registrar_resultado_trasplante(self, receptor, organo, exito: bool) -> None:
+    def registrar_resultado_trasplante(self, receptor, organo, exito):
         """
         Registra el resultado de un trasplante en el historial.
 

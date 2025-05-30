@@ -1,7 +1,4 @@
-from abc import ABC 
-from typing import Optional
-from datetime import datetime
-from centro_salud import Centro_Salud
+from abc import ABC
 
 
 
@@ -12,10 +9,9 @@ class Pacientes(ABC):
     para la identificación y asociación a un centro de salud.
   
     """
-    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
-                 telefono: str, tipo_sangre: str, centro_salud_asociado: Optional['Centro_Salud'] = None):
-        
-        
+
+    
+    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado = None):
         """
         Inicializa un nuevo Pacientes.
 
@@ -36,7 +32,7 @@ class Pacientes(ABC):
         self.tipo_sangre = tipo_sangre
         self.centro_salud_asociado = centro_salud_asociado 
 
-    def __str__(self) -> str:
+    def __str__(self):
         """
         Retorna una representación en texto del paciente
 
@@ -58,7 +54,7 @@ class Pacientes(ABC):
             f"\nCentro de Salud: {centro_salud_nombre}"
         )
     
-    def get_dni(self) -> int:
+    def get_dni(self):
         """
         Retorna el número de DNI del paciente.
 
@@ -68,7 +64,7 @@ class Pacientes(ABC):
         
         return self.__dni
 
-    def get_partido(self) -> Optional[str]:
+    def get_partido(self):
         """
          Retorna el partido del centro de salud asociado, si existe.
 

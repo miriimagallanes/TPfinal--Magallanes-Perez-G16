@@ -2,8 +2,6 @@ from pacientes.pacientes import Pacientes
 import random 
 from datetime import datetime
 from organos import Organo
-from typing import List , Optional
-from centro_salud import Centro_Salud
 
 
 
@@ -15,11 +13,9 @@ class Donante(Pacientes):
     """
 
 
-    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
-                 telefono: str, tipo_sangre: str, centro_salud_asociado: 'Centro_Salud',
-                 fecha_fallecimiento: datetime, hora_fallecimiento: str,
-                 fecha_inicio_ablacion: datetime, hora_inicio_ablacion: str,
-                 organos_a_donar_str: Optional[List[str]] = None):
+    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
+                 fecha_fallecimiento, hora_fallecimiento, fecha_inicio_ablacion, hora_inicio_ablacion,
+                 organos_a_donar_str=None): 
         """
         Inicializa un nuevo donante con información adicional sobre su fallecimiento y órganos a donar.
 
@@ -38,7 +34,7 @@ class Donante(Pacientes):
         else:
             self._generar_organos_aleatorios()
 
-    def _crear_objetos_organo(self, lista_organos_str: list[str]) -> None:
+    def _crear_objetos_organo(self, lista_organos_str):
         """
         Crea instancias de órganos válidos a partir de una lista de nombres de órganos.
 
@@ -59,7 +55,7 @@ class Donante(Pacientes):
             except ValueError as e:
                 print(f"Error: El tipo de órgano '{organo_str}' no es válido para el donante {self.nombre}. Tipos válidos: {Organo.TIPOS_VALIDOS}")
 
-    def _generar_organos_aleatorios(self) -> None:
+    def _generar_organos_aleatorios(self):
         """
         Genera una cantidad aleatoria de órganos válidos para donar.
 
@@ -71,7 +67,7 @@ class Donante(Pacientes):
         organos_aleatorios_str = random.sample(organos_posibles, cantidad_organos)
         self._crear_objetos_organo(organos_aleatorios_str)
 
-    def mostrar_organos_a_donar(self) -> None:
+    def mostrar_organos_a_donar(self):
         """
         Imprime los órganos que están disponibles para donar.
 
@@ -80,7 +76,7 @@ class Donante(Pacientes):
         """
         print(f"Órganos a donar por {self.nombre}: {', '.join(self.organos_a_donar)}")
 
-    def remover_organo_donado(self, organo: Organo) -> None:
+    def remover_organo_donado(self, organo):
         """
         Elimina un órgano de la lista de órganos disponibles si existe.
 

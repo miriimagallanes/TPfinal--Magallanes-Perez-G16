@@ -1,8 +1,5 @@
 import random
 from pacientes.pacientes import Pacientes
-from datetime import datetime
-from typing import Optional
-from centro_salud import Centro_Salud
 
 
 
@@ -13,10 +10,8 @@ class Receptor(Pacientes):
     """
 
 
-    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str,
-                 telefono: str, tipo_sangre: str, centro_salud_asociado: 'Centro_Salud',
-                 organo_necesario: str, fecha_ingreso_lista: datetime,
-                 prioridad: Optional[int] = None, estado: str = "estable"):
+    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
+                 organo_necesario, fecha_ingreso_lista, prioridad=None, estado="estable"):
         """
         Inicializa un receptor con órgano requerido y prioridad (puede ser aleatoria).
 
@@ -33,7 +28,7 @@ class Receptor(Pacientes):
         self.prioridad = prioridad if prioridad is not None else self._generar_prioridad_aleatoria()
         self.patologia = None # Podemos agregar patología si es necesario
 
-    def mostrar_estado(self) -> None:
+    def mostrar_estado(self):
         """
         Imprime el estado actual y la prioridad del receptor.
 
@@ -43,7 +38,7 @@ class Receptor(Pacientes):
         print(f"Estado del receptor {self.nombre}: {self.estado}")
         print(f"Prioridad de {self.nombre}: {self.prioridad}")
 
-    def _generar_prioridad_aleatoria(self) -> int:
+    def _generar_prioridad_aleatoria(self):
         """
         Genera una prioridad aleatoria entre 1 y 5.
 
@@ -52,7 +47,7 @@ class Receptor(Pacientes):
         """
         return random.randint(1, 5)
 
-    def trasplante_fallido(self) -> None:
+    def trasplante_fallido(self):
         """
         Actualiza la prioridad y estado tras un trasplante fallido.
 
@@ -61,7 +56,7 @@ class Receptor(Pacientes):
         self.estado = "Inestable"
         print(f"Trasplante fallido para el receptor {self.nombre}. Prioridad ahora es {self.prioridad}, estado Inestable.")
 
-    def renovar_estado(self, nuevo_estado: str) -> None:
+    def renovar_estado(self, nuevo_estado):
         """
         Cambia el estado del receptor si su prioridad es mayor a 3.
 
@@ -72,7 +67,7 @@ class Receptor(Pacientes):
         if self.prioridad > 3:
             self.estado = "inestable"
 
-    def establecer_patologia(self, patologia: str) -> None:
+    def establecer_patologia(self, patologia):
         """
         Establece la patología del paciente receptor.
 

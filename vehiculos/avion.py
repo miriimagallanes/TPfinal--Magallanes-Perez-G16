@@ -1,18 +1,19 @@
 from vehiculos.vehiculos import Vehiculos
-from typing import Optional
+
 
 
 class Avion(Vehiculos):
     """
     Representa un avión utilizado en el sistema de traslado de órganos.
     """
-    def __init__(self, velocidad: float):
+    
+    def __init__(self, velocidad):
         """
         Inicializa un avión con velocidad dada.
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia: float, trafico: Optional[float] = None) -> float:
+    def calcular_tiempo(self, distancia, trafico=None):
         """
         Calcula el tiempo de viaje, ignorando tráfico.
 

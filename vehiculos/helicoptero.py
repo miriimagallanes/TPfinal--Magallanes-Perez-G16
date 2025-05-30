@@ -1,17 +1,18 @@
 from vehiculos.vehiculos import Vehiculos
-from typing import Optional
+
+
 
 class Helicoptero(Vehiculos):
     """
     Representa un helicóptero utilizado para el transporte de órganos.
     """
-    def __init__(self, velocidad: float):
+    def __init__(self, velocidad):
         """
         Inicializa un helicóptero con velocidad dada.
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia: float, trafico: Optional[float] = None) -> float:
+    def calcular_tiempo(self, distancia, trafico):
         """
         Calcula el tiempo de viaje. El tráfico no afecta al helicóptero.
 

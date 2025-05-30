@@ -1,18 +1,19 @@
 from vehiculos.vehiculos import Vehiculos
-from typing import Optional
+
 
 
 class Vehiculo_terrestre(Vehiculos):
     """
     Representa un vehículo terrestre como una ambulancia.
     """
-    def __init__(self, velocidad: float):
+
+    def __init__(self, velocidad):
         """
         Inicializa un vehículo terrestre con velocidad dada.
         """
         super().__init__(velocidad)
 
-    def calcular_tiempo(self, distancia: float, trafico: Optional[float]) -> float:
+    def calcular_tiempo(self, distancia, trafico):
         """
         Calcula el tiempo total de viaje considerando el tráfico.
 
