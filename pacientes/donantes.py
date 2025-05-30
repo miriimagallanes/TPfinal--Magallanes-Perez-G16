@@ -1,7 +1,13 @@
-from pacientes.pacientes import Pacientes
-import random 
+from __future__ import annotations
+import random
 from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+from pacientes.pacientes import Pacientes
 from organos import Organo
+
+# Solo para verificación de tipo, no para ejecución
+if TYPE_CHECKING:
+    from centrosalud import CentroSalud
 
 
 
@@ -13,9 +19,9 @@ class Donante(Pacientes):
     """
 
 
-    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado,
-                 fecha_fallecimiento, hora_fallecimiento, fecha_inicio_ablacion, hora_inicio_ablacion,
-                 organos_a_donar_str=None): 
+    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str, telefono: str, tipo_sangre: str, centro_salud_asociado: 'CentroSalud',
+                 fecha_fallecimiento: datetime, hora_fallecimiento: datetime, fecha_inicio_ablacion: datetime, hora_inicio_ablacion: datetime,
+                 organos_a_donar_str: Optional[list[str]] = None):
         """
         Inicializa un nuevo donante con información adicional sobre su fallecimiento y órganos a donar.
 
@@ -27,14 +33,14 @@ class Donante(Pacientes):
         self.hora_fallecimiento = hora_fallecimiento
         self.fecha_inicio_ablacion = fecha_inicio_ablacion
         self.hora_inicio_ablacion = hora_inicio_ablacion
-        self.organos_a_donar = [] 
-        self.organos_ablacionados = []
+        self.organos_a_donar: list[Organo] = [] 
+        self.organos_ablacionados: list[Organo] = []
         if organos_a_donar_str is not None:
             self._crear_objetos_organo(organos_a_donar_str)
         else:
             self._generar_organos_aleatorios()
 
-    def _crear_objetos_organo(self, lista_organos_str):
+    def _crear_objetos_organo(self, lista_organos_str: list[str]) -> None:
         """
         Crea instancias de órganos válidos a partir de una lista de nombres de órganos.
 
@@ -55,7 +61,7 @@ class Donante(Pacientes):
             except ValueError as e:
                 print(f"Error: El tipo de órgano '{organo_str}' no es válido para el donante {self.nombre}. Tipos válidos: {Organo.TIPOS_VALIDOS}")
 
-    def _generar_organos_aleatorios(self):
+    def _generar_organos_aleatorios(self) -> None:
         """
         Genera una cantidad aleatoria de órganos válidos para donar.
 
@@ -67,7 +73,7 @@ class Donante(Pacientes):
         organos_aleatorios_str = random.sample(organos_posibles, cantidad_organos)
         self._crear_objetos_organo(organos_aleatorios_str)
 
-    def mostrar_organos_a_donar(self):
+    def mostrar_organos_a_donar(self) -> None:
         """
         Imprime los órganos que están disponibles para donar.
 
@@ -76,7 +82,7 @@ class Donante(Pacientes):
         """
         print(f"Órganos a donar por {self.nombre}: {', '.join(self.organos_a_donar)}")
 
-    def remover_organo_donado(self, organo):
+    def remover_organo_donado(self, organo: 'Organo') -> None:
         """
         Elimina un órgano de la lista de órganos disponibles si existe.
 

@@ -1,4 +1,12 @@
+# pacientes/pacientes.py
+from __future__ import annotations
 from abc import ABC
+from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+
+# Solo para verificación de tipo, no para ejecución
+if TYPE_CHECKING:
+    from centrosalud import CentroSalud
 
 
 
@@ -11,7 +19,7 @@ class Pacientes(ABC):
     """
 
     
-    def __init__(self, nombre, dni, fecha_nacimiento, sexo, telefono, tipo_sangre, centro_salud_asociado = None):
+    def __init__(self, nombre: str, dni: int, fecha_nacimiento: datetime, sexo: str, telefono: str, tipo_sangre: str, centro_salud_asociado: Optional['CentroSalud'] = None):
         """
         Inicializa un nuevo Pacientes.
 
@@ -32,7 +40,7 @@ class Pacientes(ABC):
         self.tipo_sangre = tipo_sangre
         self.centro_salud_asociado = centro_salud_asociado 
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Retorna una representación en texto del paciente
 
@@ -54,7 +62,7 @@ class Pacientes(ABC):
             f"\nCentro de Salud: {centro_salud_nombre}"
         )
     
-    def get_dni(self):
+    def get_dni(self) -> int:
         """
         Retorna el número de DNI del paciente.
 
@@ -64,7 +72,7 @@ class Pacientes(ABC):
         
         return self.__dni
 
-    def get_partido(self):
+    def get_partido(self) -> Optional[str]:
         """
          Retorna el partido del centro de salud asociado, si existe.
 

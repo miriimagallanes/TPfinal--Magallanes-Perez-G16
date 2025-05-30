@@ -1,4 +1,12 @@
+# organos.py
+from __future__ import annotations
 from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+
+# Solo para verificación de tipo, no para ejecución
+if TYPE_CHECKING:
+    from pacientes.receptor import Receptor
+    from pacientes.donantes import Donante
 
 
 
@@ -6,10 +14,10 @@ class Organo:
     """
     Representa un órgano humano potencialmente disponible para trasplante.
     """
-    TIPOS_VALIDOS = ["corazon", "higado", "riñones", "pulmones", "pancreas", "piel", "huesos", "intestino", "corneas"]
+    TIPOS_VALIDOS:list[str] = ["corazon", "higado", "riñones", "pulmones", "pancreas", "piel", "huesos", "intestino", "corneas"]
 
 
-    def __init__(self, tipo_org):
+    def __init__(self, tipo_org: str):
         """
         Inicializa un órgano con su tipo.
 
@@ -24,7 +32,7 @@ class Organo:
         self.tipo_org = tipo_org
         self.fecha_hora_ablacion = None 
 
-    def asignar_fecha_hora_ablacion(self, fecha_hora):
+    def asignar_fecha_hora_ablacion(self, fecha_hora: datetime) -> None:
         """
         Asigna la fecha y hora en que fue realizada la ablación.
 
@@ -36,7 +44,7 @@ class Organo:
         """
         self.fecha_hora_ablacion = fecha_hora
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Retorna una cadena con el tipo de órgano y su estado de ablación.
 
@@ -49,7 +57,7 @@ class Organo:
             ablacion_info = "No ablacionado"
         return f"{self.tipo_org} (Ablación: {ablacion_info})"
 
-    def es_compatible(self, receptor , donante ):
+    def es_compatible(self, receptor: 'Receptor', donante: 'Donante') -> bool:
         """
         Determina si el órgano es compatible entre un donante y un receptor.
 
@@ -85,7 +93,7 @@ class Organo:
         else:
             return False
 
-    def esta_disponible(self): 
+    def esta_disponible(self) -> bool:
         """
         Indica si el órgano aún no fue ablacionado.
 
@@ -94,7 +102,7 @@ class Organo:
         """ 
         return self.fecha_hora_ablacion is None
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Representación técnica del órgano, indicando su estado.
 
@@ -109,7 +117,7 @@ class Organo:
             ablacion_estado = "Pendiente"
         return f"Organo(tipo:{self.tipo_org}, estado: {ablacion_estado}"
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         """
         Permite usar el órgano como valor booleano.
 
