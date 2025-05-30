@@ -3,11 +3,13 @@ from pacientes.receptor import Receptor
 from vehiculos.vehiculo_terrestre import Vehiculo_terrestre
 from vehiculos.avion import Avion
 from vehiculos.helicoptero import Helicoptero
-from centro_salud import *
-from incucai import *
+from centro_salud import Centro_Salud
+from incucai import INCUCAI
 from cirujanos import Cirujano
 from datetime import datetime, timedelta
 from excepciones import *
+
+
 
 def mostrar_menu():
     print("\n--- MENU INTERACTIVO INCUCAI ---")
