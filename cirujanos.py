@@ -8,7 +8,7 @@ class Cirujano:
 
     Tiene especialidades, historial de operaciones y estado de disponibilidad.
     """
-    def __init__(self, nombre: str, especialidades: list = None, matricula: str = None):
+    def __init__(self, nombre, especialidades=None, matricula=None):
         """
         Inicializa un cirujano.
 
@@ -23,7 +23,7 @@ class Cirujano:
         self.matricula = matricula
         self.disponible = True
 
-    def tiene_especialidad(self, especialidad: str) -> bool:
+    def tiene_especialidad(self, especialidad):
         """
         Verifica si el cirujano posee una especialidad dada.
 
@@ -35,7 +35,7 @@ class Cirujano:
         """
         return especialidad in self.especialidades
 
-    def esta_disponible(self) -> bool:
+    def esta_disponible(self):
         """
         Verifica si el cirujano está disponible para operar.
 
@@ -44,7 +44,7 @@ class Cirujano:
         """
         return self.disponible
 
-    def marcar_como_no_disponible(self) -> None:
+    def marcar_como_no_disponible(self):
         """
         Marca al cirujano como no disponible.
 
@@ -53,7 +53,7 @@ class Cirujano:
         """
         self.disponible = False
 
-    def realizar_operacion(self, organo: str) -> bool:
+    def realizar_operacion(self, organo: str):
         """
         Simula la realización de una operación sobre un órgano.
 
@@ -72,7 +72,7 @@ class Cirujano:
         print(f"El cirujano {self.nombre} ha realizado una operación de {organo}. Éxito: {exito}.")
         return exito
 
-    def _determinar_exito(self, organo: str) -> bool:
+    def _determinar_exito(self, organo):
         """
         Lógica para determinar el éxito de la operación.
 
@@ -104,7 +104,7 @@ class Cirujano:
             else: # No tiene la especialidad requerida, se considera como general
                 return random.randint(1, 10) > 5
 
-    def resetear_disponibilidad(self) -> None:
+    def resetear_disponibilidad(self):
         """
         Marca al cirujano como disponible nuevamente.
 

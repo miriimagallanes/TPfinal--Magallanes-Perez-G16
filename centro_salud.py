@@ -15,8 +15,7 @@ class Centro_Salud:
 
     Permite registrar recursos, realizar ablaciones, trasplantes y seleccionar personal y vehículos.
     """
-    def __init__(self, nombre: str, direccion: str, partido: str, provincia: str, telefono: str,
-                 latitud: float = None, longitud: float = None):
+    def __init__(self, nombre, direccion, partido, provincia, telefono, latitud=None, longitud=None):
         """
         Inicializa un centro de salud.
 
@@ -39,7 +38,7 @@ class Centro_Salud:
         self.latitud = latitud
         self.longitud = longitud
 
-    def agregar_cirujano(self, cirujano) -> None:
+    def agregar_cirujano(self, cirujano):
         """
         Agrega un cirujano al centro.
 
@@ -48,7 +47,7 @@ class Centro_Salud:
         """
         self.cirujanos.append(cirujano)
 
-    def agregar_vehiculo(self, vehiculo) -> None:
+    def agregar_vehiculo(self, vehiculo):
         """
         Agrega un vehículo al centro.
 
@@ -57,7 +56,7 @@ class Centro_Salud:
         """
         self.vehiculos.append(vehiculo)
 
-    def buscar_pacientes(self, tipo: str, lista_pacientes: list) -> list:
+    def buscar_pacientes(self, tipo, lista_pacientes):
         """
         Filtra pacientes asociados al centro de acuerdo al tipo.
 
@@ -118,7 +117,7 @@ class Centro_Salud:
 
         return vehiculo_seleccionado
 
-    def seleccionar_cirujano_para_operacion(self, organo: str):
+    def seleccionar_cirujano_para_operacion(self, organo):
         """
         Selecciona un cirujano disponible que pueda operar el órgano.
 
@@ -184,7 +183,7 @@ class Centro_Salud:
             print(f"Centro {self.nombre}: El órgano {organo_a_ablacion.tipo_org} ya ha sido ablacionado del donante {donante.nombre}.")
             return None
 
-    def realizar_trasplante(self, receptor, organo, cirujano) -> bool:
+    def realizar_trasplante(self, receptor, organo, cirujano):
         """
         Realiza un trasplante en caso de que el órgano siga siendo viable.
 
@@ -220,7 +219,7 @@ class Centro_Salud:
             print(f"Centro {self.nombre}: El órgano {organo.tipo_org} no tiene fecha y hora de ablación registrada.")
             return False
         
-    def _obtener_especialidad_para_organo(self, organo: str) -> str:
+    def _obtener_especialidad_para_organo(self, organo):
         """
         Devuelve la especialidad médica requerida para operar un órgano.
 
@@ -243,7 +242,7 @@ class Centro_Salud:
         }
         return especialidades_por_organo.get(organo)
 
-    def obtener_distancia(self, otro_centro) -> float:
+    def obtener_distancia(self, otro_centro):
         """
         Calcula la distancia geográfica en km al otro centro usando fórmula de Haversine.
 

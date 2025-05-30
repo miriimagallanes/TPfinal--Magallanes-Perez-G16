@@ -1,5 +1,4 @@
 from abc import ABC , abstractmethod
-from typing import Optional
 
 
 
@@ -11,7 +10,7 @@ class Vehiculos(ABC):
     """
 
     
-    def __init__(self, velocidad: float):
+    def __init__(self, velocidad):
         """
         Inicializa un vehículo con una velocidad dada.
 
@@ -31,7 +30,7 @@ class Vehiculos(ABC):
         self.disponible = True
 
     @abstractmethod
-    def calcular_tiempo(self, distancia: float, trafico: Optional[float] = None) -> float:
+    def calcular_tiempo(self, distancia, trafico=None):
         """
         Calcula el tiempo estimado de viaje según el tipo de vehículo.
 
@@ -44,7 +43,7 @@ class Vehiculos(ABC):
         """
         pass 
 
-    def registrar_viaje(self, distancia: float, trafico: Optional[float], tiempo_estimado: float) -> None:
+    def registrar_viaje(self, distancia, trafico, tiempo_estimado):
         """
         Registra un viaje realizado por el vehículo.
 
@@ -62,7 +61,7 @@ class Vehiculos(ABC):
             "tiempo_estimado": tiempo_estimado
         })
 
-    def mostrar_viajes(self) -> None:
+    def mostrar_viajes(self):
         """
         Imprime en consola todos los viajes realizados por el vehículo.
 
@@ -72,7 +71,7 @@ class Vehiculos(ABC):
         for viaje in self.viajes_realizados:
             print(viaje)
 
-    def marcar_no_disponible(self) -> None:
+    def marcar_no_disponible(self):
         """
         Marca al vehículo como no disponible.
 
@@ -81,7 +80,7 @@ class Vehiculos(ABC):
         """
         self.disponible = False
 
-    def marcar_disponible(self) -> None:
+    def marcar_disponible(self):
         """
         Marca al vehículo como disponible.
 
