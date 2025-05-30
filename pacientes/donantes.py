@@ -3,9 +3,9 @@ import random
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 from pacientes.pacientes import Pacientes
-from organos import Organo
+from organos.organos import Organo
 if TYPE_CHECKING:
-    from centrosalud import CentroSalud
+    from centrosalud.centrosalud import CentroSalud
 
 
 

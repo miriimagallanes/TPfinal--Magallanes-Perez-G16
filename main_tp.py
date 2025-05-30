@@ -3,11 +3,11 @@ from pacientes.receptor import Receptor
 from vehiculos.vehiculoterrestre import VehiculoTerrestre
 from vehiculos.avion import Avion
 from vehiculos.helicoptero import Helicoptero
-from centrosalud import CentroSalud
-from incucai import INCUCAI
-from cirujanos import Cirujano
+from centrosalud.centrosalud import CentroSalud
+from incucai.incucai import INCUCAI
+from cirujanos.cirujanos import Cirujano
 from datetime import datetime, timedelta
-from excepciones import *
+from excepciones.excepciones import *
 
 
 

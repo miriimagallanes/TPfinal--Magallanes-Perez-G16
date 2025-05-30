@@ -4,8 +4,8 @@ from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 from pacientes.pacientes import Pacientes
 if TYPE_CHECKING:
-    from centrosalud import CentroSalud
-    from organos import Organo 
+    from centrosalud.centrosalud import CentroSalud
+    from organos.organos import Organo 
 
 
 

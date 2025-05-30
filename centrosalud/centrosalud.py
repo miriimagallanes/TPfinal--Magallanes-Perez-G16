@@ -2,11 +2,11 @@ from __future__ import annotations
 from math import radians, cos, sin, atan2, sqrt
 from datetime import datetime, timedelta
 from typing import Optional, List, TYPE_CHECKING
-from excepciones import RecursoNoDisponibleError
+from excepciones.excepciones import RecursoNoDisponibleError
 from pacientes.donantes import Donante
 from pacientes.receptor import Receptor
-from organos import Organo
-from cirujanos import Cirujano
+from organos.organos import Organo
+from cirujanos.cirujanos import Cirujano
 from vehiculos.vehiculos import Vehiculos
 from vehiculos.vehiculoterrestre import VehiculoTerrestre
 from vehiculos.helicoptero import Helicoptero

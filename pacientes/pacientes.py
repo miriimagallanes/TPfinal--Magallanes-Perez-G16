@@ -3,7 +3,7 @@ from abc import ABC
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 if TYPE_CHECKING:
-    from centrosalud import CentroSalud
+    from centrosalud.centrosalud import CentroSalud
 
 
 
